@@ -8,18 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		446FFA5222691D7F0078D778 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446FFA5122691D7F0078D778 /* AppDelegate.swift */; };
-		446FFA5422691D7F0078D778 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446FFA5322691D7F0078D778 /* ViewController.swift */; };
+		446FFA5422691D7F0078D778 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446FFA5322691D7F0078D778 /* MainViewController.swift */; };
 		446FFA5722691D7F0078D778 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 446FFA5522691D7F0078D778 /* Main.storyboard */; };
 		446FFA5922691D810078D778 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 446FFA5822691D810078D778 /* Assets.xcassets */; };
+		C9AB4D96AA1477F8554ECF30 /* Pods_playtv_tvos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACEAA85F912EE937E59B7084 /* Pods_playtv_tvos.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		446FFA4E22691D7F0078D778 /* playtv-tvos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "playtv-tvos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		446FFA5122691D7F0078D778 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		446FFA5322691D7F0078D778 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		446FFA5322691D7F0078D778 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		446FFA5622691D7F0078D778 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		446FFA5822691D810078D778 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		446FFA5A22691D810078D778 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		85F360040ACF09DC2253EA12 /* Pods-playtv-tvos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-playtv-tvos.release.xcconfig"; path = "Target Support Files/Pods-playtv-tvos/Pods-playtv-tvos.release.xcconfig"; sourceTree = "<group>"; };
+		ACEAA85F912EE937E59B7084 /* Pods_playtv_tvos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_playtv_tvos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB0972AA680226A7B3FC83DE /* Pods-playtv-tvos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-playtv-tvos.debug.xcconfig"; path = "Target Support Files/Pods-playtv-tvos/Pods-playtv-tvos.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,17 +31,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9AB4D96AA1477F8554ECF30 /* Pods_playtv_tvos.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C62FA61EFF1757F3C806082 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ACEAA85F912EE937E59B7084 /* Pods_playtv_tvos.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		41904EC805FECF18B5BA7A56 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DB0972AA680226A7B3FC83DE /* Pods-playtv-tvos.debug.xcconfig */,
+				85F360040ACF09DC2253EA12 /* Pods-playtv-tvos.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		446FFA4522691D7E0078D778 = {
 			isa = PBXGroup;
 			children = (
 				446FFA5022691D7F0078D778 /* playtv-tvos */,
 				446FFA4F22691D7F0078D778 /* Products */,
+				41904EC805FECF18B5BA7A56 /* Pods */,
+				2C62FA61EFF1757F3C806082 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -53,12 +78,36 @@
 			isa = PBXGroup;
 			children = (
 				446FFA5122691D7F0078D778 /* AppDelegate.swift */,
-				446FFA5322691D7F0078D778 /* ViewController.swift */,
-				446FFA5522691D7F0078D778 /* Main.storyboard */,
-				446FFA5822691D810078D778 /* Assets.xcassets */,
+				446FFA6022691DF40078D778 /* View Controllers */,
+				446FFA6122691E6C0078D778 /* Views */,
+				446FFA6222691E7A0078D778 /* Supporting Files */,
 				446FFA5A22691D810078D778 /* Info.plist */,
 			);
 			path = "playtv-tvos";
+			sourceTree = "<group>";
+		};
+		446FFA6022691DF40078D778 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				446FFA5322691D7F0078D778 /* MainViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		446FFA6122691E6C0078D778 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				446FFA5522691D7F0078D778 /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		446FFA6222691E7A0078D778 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				446FFA5822691D810078D778 /* Assets.xcassets */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -68,9 +117,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 446FFA5D22691D810078D778 /* Build configuration list for PBXNativeTarget "playtv-tvos" */;
 			buildPhases = (
+				25C1E9F37F0ECF8B6895C459 /* [CP] Check Pods Manifest.lock */,
 				446FFA4A22691D7F0078D778 /* Sources */,
 				446FFA4B22691D7F0078D778 /* Frameworks */,
 				446FFA4C22691D7F0078D778 /* Resources */,
+				E2D36E131AA7CE25826B15C8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -93,6 +144,11 @@
 				TargetAttributes = {
 					446FFA4D22691D7F0078D778 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes.appletvos = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -126,12 +182,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		25C1E9F37F0ECF8B6895C459 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-playtv-tvos-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E2D36E131AA7CE25826B15C8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-playtv-tvos/Pods-playtv-tvos-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-playtv-tvos/Pods-playtv-tvos-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		446FFA4A22691D7F0078D778 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				446FFA5422691D7F0078D778 /* ViewController.swift in Sources */,
+				446FFA5422691D7F0078D778 /* MainViewController.swift in Sources */,
 				446FFA5222691D7F0078D778 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,6 +371,7 @@
 		};
 		446FFA5E22691D810078D778 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB0972AA680226A7B3FC83DE /* Pods-playtv-tvos.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -285,6 +391,7 @@
 		};
 		446FFA5F22691D810078D778 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 85F360040ACF09DC2253EA12 /* Pods-playtv-tvos.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
