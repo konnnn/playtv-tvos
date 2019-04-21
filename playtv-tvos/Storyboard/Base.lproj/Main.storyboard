@@ -28,5 +28,23 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
+        <!--Menu View Controller-->
+        <scene sceneID="O6j-Og-rhC">
+            <objects>
+                <viewController storyboardIdentifier="MenuViewController" id="mZa-g9-VZs" customClass="MenuViewController" customModule="playtv_tvos" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nW5-lH-O4z"/>
+                        <viewControllerLayoutGuide type="bottom" id="rAl-SO-vsI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="f4y-8C-FWD">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="UEf-mM-lsT"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vUz-AJ-5oO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2309" y="1161"/>
+        </scene>
     </scenes>
 </document>

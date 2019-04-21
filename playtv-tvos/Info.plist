@@ -33,5 +33,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>PT_Sans-Narrow-Web-Regular.ttf</string>
+		<string>PT_Sans-Narrow-Web-Bold.ttf</string>
+	</array>
 </dict>
 </plist>
