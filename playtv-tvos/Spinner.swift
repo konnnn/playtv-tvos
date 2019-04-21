@@ -18,7 +18,7 @@ open class Spinner {
             spinner?.style = .whiteLarge
             spinner?.color = .white
             spinner?.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-            superView.addSubview(spinner!)
+            superView.insertSubview(spinner!, at: LayerOrder.spinner.rawValue)
             spinner?.startAnimating()
         }
     }

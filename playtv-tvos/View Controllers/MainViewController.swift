@@ -37,6 +37,8 @@ class MainViewController: GCEventViewController {
         super.viewDidLoad()
         
         setUpPlayer()
+        setUpClock()
+        
     }
     
     // MARK: - Press Events
@@ -121,15 +123,7 @@ class MainViewController: GCEventViewController {
         
         if currentChannel!.count > 0, let channel = currentChannel?[0] {
             
-            self.view.backgroundColor = .black
             
-            Player.playItem(with: URL(string: channel.url)!)
-            Player.setVideoGravity(to: .resizeAspect)
-            
-            player?.currentItem?.addObserver(self, forKeyPath: "playbackBufferEmpty", options: .new, context: nil)
-            player?.currentItem?.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .new, context: nil)
-            player?.currentItem?.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .new, context: nil)
-            Spinner.show(at: self.view)
             
         } else {
             self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg")!)
@@ -138,7 +132,12 @@ class MainViewController: GCEventViewController {
         }
     }
     
-    
+    func setUpClock() {
+        Clock.run()
+        self.view.insertSubview(Clock.label, at: LayerOrder.clock.rawValue)
+        Clock.label.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        Clock.label.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 40).isActive = true
+    }
     
     
     

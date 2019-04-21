@@ -39,11 +39,11 @@ extension UIColor {
 }
 
 extension UIFont {
-    class func ptsansNarrowRegular(size: CGFloat) -> UIFont {
+    class func sansNarrowRegular(size: CGFloat) -> UIFont {
         return UIFont(name: "PTSans-Narrow", size: size) ?? UIFont.systemFont(ofSize: size, weight: UIFont.Weight.regular)
     }
     
-    class func ptsansNarrowBold(size: CGFloat) -> UIFont {
+    class func sansNarrowBold(size: CGFloat) -> UIFont {
         return UIFont(name: "PTSans-NarrowBold", size: size) ?? UIFont.systemFont(ofSize: size, weight: UIFont.Weight.bold)
     }
 }

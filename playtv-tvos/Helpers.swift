@@ -13,3 +13,9 @@ var playerIsPlaying: Bool = false
 var player: AVPlayer?
 let user = UserDefaults.standard
 
+enum LayerOrder: Int {
+    case player = 0
+    case spinner = 888
+    case clock = 999
+}
+

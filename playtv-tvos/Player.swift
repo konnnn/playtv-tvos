@@ -35,7 +35,7 @@ class Player: NSObject {
     public static func add(to superView: UIView) {
         playerLayer = AVPlayerLayer(player: player)
         playerLayer.frame = superView.bounds
-        superView.layer.addSublayer(playerLayer)
+        superView.layer.insertSublayer(playerLayer, at: UInt32(LayerOrder.player.rawValue))
     }
     
     public static func setVideoGravity(to gravity: AVLayerVideoGravity) {

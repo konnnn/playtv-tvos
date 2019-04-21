@@ -14,8 +14,11 @@
 		44172301226A9663005B7C2A /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44172300226A9663005B7C2A /* MenuViewController.swift */; };
 		44172303226B0235005B7C2A /* CAGradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44172302226B0235005B7C2A /* CAGradientLayer.swift */; };
 		44172305226B0314005B7C2A /* UIFont+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44172304226B0314005B7C2A /* UIFont+UIColor.swift */; };
-		4417230A226B08F0005B7C2A /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44172309226B08F0005B7C2A /* Clock.swift */; };
 		4417230C226BE875005B7C2A /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4417230B226BE875005B7C2A /* Spinner.swift */; };
+		445A763B226CDA4F00455C18 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445A763A226CDA4F00455C18 /* Clock.swift */; };
+		445A763C226CE86200455C18 /* PTSans-NarrowBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 445A7638226C784E00455C18 /* PTSans-NarrowBold.ttf */; };
+		445A763D226CE86500455C18 /* PTSans-Narrow.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 445A7637226C784E00455C18 /* PTSans-Narrow.ttf */; };
+		445A763F226CEB7E00455C18 /* UILabel+Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445A763E226CEB7E00455C18 /* UILabel+Padding.swift */; };
 		446FFA5222691D7F0078D778 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446FFA5122691D7F0078D778 /* AppDelegate.swift */; };
 		446FFA5422691D7F0078D778 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446FFA5322691D7F0078D778 /* MainViewController.swift */; };
 		446FFA5722691D7F0078D778 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 446FFA5522691D7F0078D778 /* Main.storyboard */; };
@@ -31,10 +34,11 @@
 		44172300226A9663005B7C2A /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		44172302226B0235005B7C2A /* CAGradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAGradientLayer.swift; sourceTree = "<group>"; };
 		44172304226B0314005B7C2A /* UIFont+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+UIColor.swift"; sourceTree = "<group>"; };
-		44172309226B08F0005B7C2A /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		4417230B226BE875005B7C2A /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
-		445A7637226C784E00455C18 /* PT_Sans-Narrow-Web-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PT_Sans-Narrow-Web-Regular.ttf"; sourceTree = "<group>"; };
-		445A7638226C784E00455C18 /* PT_Sans-Narrow-Web-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PT_Sans-Narrow-Web-Bold.ttf"; sourceTree = "<group>"; };
+		445A7637226C784E00455C18 /* PTSans-Narrow.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PTSans-Narrow.ttf"; sourceTree = "<group>"; };
+		445A7638226C784E00455C18 /* PTSans-NarrowBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PTSans-NarrowBold.ttf"; sourceTree = "<group>"; };
+		445A763A226CDA4F00455C18 /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
+		445A763E226CEB7E00455C18 /* UILabel+Padding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Padding.swift"; sourceTree = "<group>"; };
 		446FFA4E22691D7F0078D778 /* playtv-tvos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "playtv-tvos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		446FFA5122691D7F0078D778 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		446FFA5322691D7F0078D778 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +93,7 @@
 			children = (
 				44172302226B0235005B7C2A /* CAGradientLayer.swift */,
 				44172304226B0314005B7C2A /* UIFont+UIColor.swift */,
+				445A763E226CEB7E00455C18 /* UILabel+Padding.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -96,8 +101,8 @@
 		445A7639226C785300455C18 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				445A7638226C784E00455C18 /* PT_Sans-Narrow-Web-Bold.ttf */,
-				445A7637226C784E00455C18 /* PT_Sans-Narrow-Web-Regular.ttf */,
+				445A7638226C784E00455C18 /* PTSans-NarrowBold.ttf */,
+				445A7637226C784E00455C18 /* PTSans-Narrow.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -126,7 +131,7 @@
 				446FFA5122691D7F0078D778 /* AppDelegate.swift */,
 				441722FC22695489005B7C2A /* Helpers.swift */,
 				441722FE226A4289005B7C2A /* Player.swift */,
-				44172309226B08F0005B7C2A /* Clock.swift */,
+				445A763A226CDA4F00455C18 /* Clock.swift */,
 				4417230B226BE875005B7C2A /* Spinner.swift */,
 				44172306226B033D005B7C2A /* Extensions */,
 				441722FB226929C6005B7C2A /* Data Model */,
@@ -229,8 +234,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				445A763D226CE86500455C18 /* PTSans-Narrow.ttf in Resources */,
 				446FFA5922691D810078D778 /* Assets.xcassets in Resources */,
 				446FFA5722691D7F0078D778 /* Main.storyboard in Resources */,
+				445A763C226CE86200455C18 /* PTSans-NarrowBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,17 +297,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				445A763F226CEB7E00455C18 /* UILabel+Padding.swift in Sources */,
 				4417230C226BE875005B7C2A /* Spinner.swift in Sources */,
 				446FFA5422691D7F0078D778 /* MainViewController.swift in Sources */,
 				441722FA2269270F005B7C2A /* Channel.swift in Sources */,
 				446FFA5222691D7F0078D778 /* AppDelegate.swift in Sources */,
 				44172303226B0235005B7C2A /* CAGradientLayer.swift in Sources */,
-				4417230A226B08F0005B7C2A /* Clock.swift in Sources */,
 				44172301226A9663005B7C2A /* MenuViewController.swift in Sources */,
 				44172305226B0314005B7C2A /* UIFont+UIColor.swift in Sources */,
 				441722FF226A4289005B7C2A /* Player.swift in Sources */,
 				441722FD22695489005B7C2A /* Helpers.swift in Sources */,
 				441722F822692706005B7C2A /* Playlist.swift in Sources */,
+				445A763B226CDA4F00455C18 /* Clock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

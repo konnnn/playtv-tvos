@@ -35,8 +35,8 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>PT_Sans-Narrow-Web-Regular.ttf</string>
-		<string>PT_Sans-Narrow-Web-Bold.ttf</string>
+		<string>PTSans-Narrow.ttf</string>
+		<string>PTSans-NarrowBold.ttf</string>
 	</array>
 </dict>
 </plist>
