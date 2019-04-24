@@ -10,6 +10,6 @@ import Foundation
 import RealmSwift
 
 class Playlist: Object {
-    @objc dynamic var title: String = ""
+    @objc dynamic var title: String? = nil
     let channels = List<Channel>()
 }

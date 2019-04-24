@@ -19,10 +19,13 @@
 		445A763C226CE86200455C18 /* PTSans-NarrowBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 445A7638226C784E00455C18 /* PTSans-NarrowBold.ttf */; };
 		445A763D226CE86500455C18 /* PTSans-Narrow.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 445A7637226C784E00455C18 /* PTSans-Narrow.ttf */; };
 		445A763F226CEB7E00455C18 /* UILabel+Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445A763E226CEB7E00455C18 /* UILabel+Padding.swift */; };
+		44694C642270E46D00CDD166 /* LoadHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44694C632270E46D00CDD166 /* LoadHandler.swift */; };
 		446FFA5222691D7F0078D778 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446FFA5122691D7F0078D778 /* AppDelegate.swift */; };
 		446FFA5422691D7F0078D778 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446FFA5322691D7F0078D778 /* MainViewController.swift */; };
 		446FFA5722691D7F0078D778 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 446FFA5522691D7F0078D778 /* Main.storyboard */; };
 		446FFA5922691D810078D778 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 446FFA5822691D810078D778 /* Assets.xcassets */; };
+		4489354D226FADC500A691AF /* LoaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4489354C226FADC500A691AF /* LoaderViewController.swift */; };
+		44A3AE672270B7D70025B7DE /* LoaderBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A3AE662270B7D70025B7DE /* LoaderBox.swift */; };
 		C9AB4D96AA1477F8554ECF30 /* Pods_playtv_tvos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACEAA85F912EE937E59B7084 /* Pods_playtv_tvos.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,12 +42,15 @@
 		445A7638226C784E00455C18 /* PTSans-NarrowBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PTSans-NarrowBold.ttf"; sourceTree = "<group>"; };
 		445A763A226CDA4F00455C18 /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		445A763E226CEB7E00455C18 /* UILabel+Padding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Padding.swift"; sourceTree = "<group>"; };
+		44694C632270E46D00CDD166 /* LoadHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadHandler.swift; sourceTree = "<group>"; };
 		446FFA4E22691D7F0078D778 /* playtv-tvos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "playtv-tvos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		446FFA5122691D7F0078D778 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		446FFA5322691D7F0078D778 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		446FFA5622691D7F0078D778 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		446FFA5822691D810078D778 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		446FFA5A22691D810078D778 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4489354C226FADC500A691AF /* LoaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderViewController.swift; sourceTree = "<group>"; };
+		44A3AE662270B7D70025B7DE /* LoaderBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderBox.swift; sourceTree = "<group>"; };
 		85F360040ACF09DC2253EA12 /* Pods-playtv-tvos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-playtv-tvos.release.xcconfig"; path = "Target Support Files/Pods-playtv-tvos/Pods-playtv-tvos.release.xcconfig"; sourceTree = "<group>"; };
 		ACEAA85F912EE937E59B7084 /* Pods_playtv_tvos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_playtv_tvos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB0972AA680226A7B3FC83DE /* Pods-playtv-tvos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-playtv-tvos.debug.xcconfig"; path = "Target Support Files/Pods-playtv-tvos/Pods-playtv-tvos.debug.xcconfig"; sourceTree = "<group>"; };
@@ -133,6 +139,8 @@
 				441722FE226A4289005B7C2A /* Player.swift */,
 				445A763A226CDA4F00455C18 /* Clock.swift */,
 				4417230B226BE875005B7C2A /* Spinner.swift */,
+				44A3AE662270B7D70025B7DE /* LoaderBox.swift */,
+				44694C632270E46D00CDD166 /* LoadHandler.swift */,
 				44172306226B033D005B7C2A /* Extensions */,
 				441722FB226929C6005B7C2A /* Data Model */,
 				446FFA6022691DF40078D778 /* View Controllers */,
@@ -148,6 +156,7 @@
 			children = (
 				446FFA5322691D7F0078D778 /* MainViewController.swift */,
 				44172300226A9663005B7C2A /* MenuViewController.swift */,
+				4489354C226FADC500A691AF /* LoaderViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -301,7 +310,10 @@
 				4417230C226BE875005B7C2A /* Spinner.swift in Sources */,
 				446FFA5422691D7F0078D778 /* MainViewController.swift in Sources */,
 				441722FA2269270F005B7C2A /* Channel.swift in Sources */,
+				44A3AE672270B7D70025B7DE /* LoaderBox.swift in Sources */,
+				44694C642270E46D00CDD166 /* LoadHandler.swift in Sources */,
 				446FFA5222691D7F0078D778 /* AppDelegate.swift in Sources */,
+				4489354D226FADC500A691AF /* LoaderViewController.swift in Sources */,
 				44172303226B0235005B7C2A /* CAGradientLayer.swift in Sources */,
 				44172301226A9663005B7C2A /* MenuViewController.swift in Sources */,
 				44172305226B0314005B7C2A /* UIFont+UIColor.swift in Sources */,

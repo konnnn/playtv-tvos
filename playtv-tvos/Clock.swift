@@ -10,20 +10,20 @@ import UIKit
 
 class Clock: NSObject {
     
-    private static var clockTimer = Timer()
+    private static var clockTimer: Timer?
 
-    public static var label: UILabel = {
-        let label = PaddingLabel(withInsets: 8, 8, 18, 18)
-        label.text = "Time".uppercased()
+    private static var label: UILabel = {
+        let label = PaddingLabel(withInsets: 5, 6, 20, 20)
+        label.text = "Часы".uppercased()
         label.textColor = .white
         label.textAlignment = .center
-        label.font = UIFont.sansNarrowBold(size: 26)
+        label.font = UIFont.sansNarrowBold(size: 28)
         
         label.layer.shadowColor = UIColor.black.cgColor
         label.layer.shadowOpacity = 0.3
         label.layer.shadowOffset = .zero
         label.layer.shadowRadius = 12
-        label.layer.backgroundColor = UIColor.black.withAlphaComponent(0.14).cgColor
+        label.layer.backgroundColor = UIColor.black.withAlphaComponent(0.24).cgColor
         label.layer.cornerRadius = 24
         
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -31,15 +31,28 @@ class Clock: NSObject {
         return label
     }()
     
-    public static func run() {
+    public static func run(in view: UIView) {
         setDateFormatter()
-        clockTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
-            setDateFormatter()
-        })
+        
+        if clockTimer == nil {
+            clockTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+                setDateFormatter()
+            })
+        }
+        
+        view.insertSubview(label, at: LayerOrder.clock.rawValue)
+        label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        label.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
     }
     
     public static func stop() {
-        clockTimer.invalidate()
+        
+        if clockTimer != nil {
+            clockTimer?.invalidate()
+            clockTimer = nil
+        }
+        
+        label.removeFromSuperview()
     }
     
     private static func setDateFormatter() {

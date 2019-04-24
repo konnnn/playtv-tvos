@@ -18,6 +18,6 @@ extension UIViewController {
             UIColor(hexString: "#1C1D27", alpha: 1).cgColor
         ]
         gradientLayer.locations = [0.0, 0.4, 1.0]
-        superView.layer.addSublayer(gradientLayer)
+        superView.layer.insertSublayer(gradientLayer, at: UInt32(LayerOrder.gradient.rawValue))
     }
 }

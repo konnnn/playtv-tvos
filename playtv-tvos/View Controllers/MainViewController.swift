@@ -15,6 +15,7 @@ class MainViewController: GCEventViewController {
     
     let realm = try! Realm()
     var currentChannel: Results<CurrentChannel>?
+    var channelsResult: Results<Channel>?
     
     // Каналы новостей http://iptvsensei.ru/kanalyi-novostey
     
@@ -29,16 +30,19 @@ class MainViewController: GCEventViewController {
     // News https://abc-iview-mediapackagestreams-1.akamaized.net/out/v1/50345bf35f664739912f0b255c172ae9/index_1.m3u8
     // ABC News http://abclive2-lh.akamaihd.net/i/abc_live11@423404/index_4000_av-p.m3u8
     // RT http://rt-news.secure.footprint.net/1103-inadv-qidx-1k_v5.m3u8
-    var urlString = "http://rt-news.secure.footprint.net/1103-inadv-qidx-1k_v5.m3u8"
+//    var urlString = "http://24121978.iptvbot.net/iptv/VSMYUYTV6UWLB3/507/index.m3u8"
     
     // MARK: - Views Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setUpPlayer()
-        setUpClock()
-        
+        Clock.run(in: self.view)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        checkChannelsQuantity()
     }
     
     // MARK: - Press Events
@@ -52,23 +56,9 @@ class MainViewController: GCEventViewController {
             switch press.type {
                 
             case .select:
-                print("\nSelect")
+                print("\n\n  Main Select")
+                print("\n\n  Nothing to do")
                 
-                self.view.backgroundColor = .black
-                
-                Player.playItem(with: URL(string: urlString)!)
-                let playerSublayer = view.layer.sublayers?.filter({ $0 is AVPlayerLayer }).count
-                
-                if playerSublayer == 0 {
-                    Player.add(to: self.view)
-                    print("\n\n  New Player was added")
-                }
-                Player.setVideoGravity(to: .resizeAspect)
-                
-                player?.currentItem?.addObserver(self, forKeyPath: "playbackBufferEmpty", options: .new, context: nil)
-                player?.currentItem?.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .new, context: nil)
-                player?.currentItem?.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .new, context: nil)
-                Spinner.show(at: self.view)
                 
             case .playPause:
                 playerIsPlaying == true ? player?.pause() : player?.play()
@@ -76,9 +66,11 @@ class MainViewController: GCEventViewController {
                 
             case .menu:
                 controllerUserInteractionEnabled = false
-                let menuVC = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
-                menuVC.setPopupPresentation()
-                self.present(menuVC, animated: true, completion: nil)
+                
+                let menu = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+                menu.setPopupPresentation()
+                menu.delegate = self as MenuViewDelegate
+                self.present(menu, animated: true, completion: nil)
                 
             default:
                 super.pressesBegan(presses, with: event)
@@ -132,15 +124,51 @@ class MainViewController: GCEventViewController {
         }
     }
     
-    func setUpClock() {
-        Clock.run()
-        self.view.insertSubview(Clock.label, at: LayerOrder.clock.rawValue)
-        Clock.label.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        Clock.label.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 40).isActive = true
+    func checkChannelsQuantity() {
+        channelsResult = realm.objects(Channel.self)
+        
+        if channelsResult?.count == 0 {
+            print("\n\n Channel`s list is empty")
+            
+            let loader = self.storyboard?.instantiateViewController(withIdentifier: "LoaderViewController") as! LoaderViewController
+            loader.setPopupPresentation()
+            self.present(loader, animated: true, completion: nil)
+            
+        }
     }
     
     
+}
+
+// MARK: - Menu Delegate Methods
+
+extension MainViewController: MenuViewDelegate {
     
+    func channelSelectionPressed(currentChannel: CurrentChannel) {
+       
+        print("\n\n Main Delegate is ON")
+        
+        self.view.backgroundColor = .black
+        
+        if let urlString = currentChannel.url, let url = URL(string: urlString) {
+            
+            Player.playItem(with: url)
+            
+            let playerSublayer = self.view.layer.sublayers?.filter({ $0 is AVPlayerLayer }).count
+            if playerSublayer == 0 {
+                Player.add(to: self.view)
+                print("\n\n  New Player was added")
+            }
+            
+            Player.setVideoGravity(to: .resizeAspect)
+            
+            player?.currentItem?.addObserver(self, forKeyPath: "playbackBufferEmpty", options: .new, context: nil)
+            player?.currentItem?.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .new, context: nil)
+            player?.currentItem?.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .new, context: nil)
+            
+            Spinner.show(at: self.view)
+        }
+    }
     
 }
 
