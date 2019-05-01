@@ -17,7 +17,8 @@ let user = UserDefaults.standard
 enum LayerOrder: Int {
     case player = 0
     case gradient = 1
-    case loaderBox = 200
+    case downloaderBox = 200
+    case channelsCollectionView = 199
     case spinner = 800
     case clock = 999
 }

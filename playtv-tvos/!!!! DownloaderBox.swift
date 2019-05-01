@@ -1,5 +1,5 @@
 //
-//  LoaderBox.swift
+//  DownloaderBox.swift
 //  playtv-tvos
 //
 //  Created by Evgeny Konkin on 24.04.2019.
@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import GameController
 
-class LoaderBox: MainView {
+class DownloaderBox: MainView {
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -157,12 +158,24 @@ class LoaderBox: MainView {
     }
     
     @objc private func saveButtonPressed() {
-        print("\n\n  \(nameTextField.text) — \(urlTextField.text)")
-    }
+        
+        guard let name = nameTextField.text, let urlString = urlTextField.text else { return }
+        Spinner.show(in: self, title: "Идет загрузка", cornerRadius: 24, backgroundAlpha: 0.8, isUserInteractionEnabled: false)
+        DownloadHandler.download(name: name, urlString: urlString) { (message, failure) in
+            
+            if !failure {
+                print("\n\n  Success: \(message)")
+                
+            } else {
+                print("\n\n Failure: \(message)")
+            }
+            
+        }
+     }
 
 }
 
-extension LoaderBox: UITextFieldDelegate {
+extension DownloaderBox: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         

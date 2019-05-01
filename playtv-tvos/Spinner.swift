@@ -12,21 +12,46 @@ open class Spinner {
     
     private static var spinner: UIActivityIndicatorView?
     
-    public static func show(at superView: UIView) {
+    public static func show(in view: UIView,
+                            title: String = "Подключение",
+                            cornerRadius: CGFloat = 0,
+                            backgroundAlpha: CGFloat = 0.4,
+                            isUserInteractionEnabled: Bool = true) {
         if spinner == nil {
-            spinner = UIActivityIndicatorView(frame: superView.bounds)
+            spinner = UIActivityIndicatorView(frame: view.bounds)
             spinner?.style = .whiteLarge
             spinner?.color = .white
-            spinner?.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-            superView.insertSubview(spinner!, at: LayerOrder.spinner.rawValue)
+            spinner?.backgroundColor = UIColor.black.withAlphaComponent(backgroundAlpha)
+            view.insertSubview(spinner!, at: LayerOrder.spinner.rawValue)
             spinner?.startAnimating()
+            spinner?.hidesWhenStopped = true
+            spinner?.layer.cornerRadius = cornerRadius
+            view.isUserInteractionEnabled = isUserInteractionEnabled
+            
+            let label: UILabel = {
+                let label = UILabel()
+                label.text = title.uppercased()
+                label.textColor = .white
+                label.textAlignment = .center
+                label.numberOfLines = 0
+                label.font = UIFont.sansNarrowBold(size: 28)
+                label.translatesAutoresizingMaskIntoConstraints = false
+                return label
+            }()
+            
+            spinner?.addSubview(label)
+            label.centerXAnchor.constraint(equalTo: (spinner?.centerXAnchor)!).isActive = true
+            label.centerYAnchor.constraint(equalTo: (spinner?.centerYAnchor)!, constant: 70).isActive = true
+            label.widthAnchor.constraint(equalToConstant: 250).isActive = true
+            label.heightAnchor.constraint(equalToConstant: 40).isActive = true
         }
     }
     
-    public static func hide() {
+    public static func hide(from view: UIView, isUserInteractionEnabled: Bool = true) {
         spinner?.stopAnimating()
-        spinner?.removeFromSuperview()
+        view.isUserInteractionEnabled = isUserInteractionEnabled
         spinner = nil
+        spinner?.removeFromSuperview()
     }
     
 }

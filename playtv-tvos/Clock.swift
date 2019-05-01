@@ -42,7 +42,7 @@ class Clock: NSObject {
         
         view.insertSubview(label, at: LayerOrder.clock.rawValue)
         label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        label.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        label.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
     }
     
     public static func stop() {
