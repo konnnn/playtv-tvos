@@ -152,17 +152,19 @@ extension MainViewController: MenuViewControllerDelegate {
         
         if let urlString = currentChannel.url, let url = URL(string: urlString) {
             
-            Player.playItem(with: url)
-            Player.setVideoGravity(to: .resizeAspect)
-            
             let playerSublayer = self.view.layer.sublayers?.filter({ $0 is AVPlayerLayer }).count
             if playerSublayer == 0 {
+                Player.addItem(with: url)
                 Player.add(to: self.view)
+            } else {
+                Player.replaceItem(with: url)
             }
+            
+            Player.setVideoGravity(to: .resizeAspect)
             
             player?.currentItem?.addObserver(self, forKeyPath: "playbackBufferEmpty", options: .new, context: nil)
             player?.currentItem?.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .new, context: nil)
-            player?.currentItem?.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .new, context: nil)
+            player?.currentItem?.addObserver(self, forKeyPath: "playbackBufferFull", options: .new, context: nil)
             
             Spinner.show(in: self.view)
         }

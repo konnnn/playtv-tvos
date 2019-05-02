@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		44087714227779D3006A2081 /* ChannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44087712227779D3006A2081 /* ChannelCell.swift */; };
 		44087715227779D3006A2081 /* ChannelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44087713227779D3006A2081 /* ChannelCell.xib */; };
+		44087718227B56CB006A2081 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44087717227B56CB006A2081 /* UIImage+Resize.swift */; };
 		441722F822692706005B7C2A /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441722F722692706005B7C2A /* Playlist.swift */; };
 		441722FA2269270F005B7C2A /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441722F92269270F005B7C2A /* Channel.swift */; };
 		441722FD22695489005B7C2A /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441722FC22695489005B7C2A /* Helpers.swift */; };
@@ -34,6 +35,7 @@
 /* Begin PBXFileReference section */
 		44087712227779D3006A2081 /* ChannelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelCell.swift; sourceTree = "<group>"; };
 		44087713227779D3006A2081 /* ChannelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChannelCell.xib; sourceTree = "<group>"; };
+		44087717227B56CB006A2081 /* UIImage+Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
 		441722F722692706005B7C2A /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		441722F92269270F005B7C2A /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		441722FC22695489005B7C2A /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				44172302226B0235005B7C2A /* CAGradientLayer.swift */,
 				44172304226B0314005B7C2A /* UIFont+UIColor.swift */,
 				445A763E226CEB7E00455C18 /* UILabel+Padding.swift */,
+				44087717227B56CB006A2081 /* UIImage+Resize.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				44172305226B0314005B7C2A /* UIFont+UIColor.swift in Sources */,
 				441722FF226A4289005B7C2A /* Player.swift in Sources */,
 				441722FD22695489005B7C2A /* Helpers.swift in Sources */,
+				44087718227B56CB006A2081 /* UIImage+Resize.swift in Sources */,
 				441722F822692706005B7C2A /* Playlist.swift in Sources */,
 				445A763B226CDA4F00455C18 /* Clock.swift in Sources */,
 			);

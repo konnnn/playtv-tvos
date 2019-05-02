@@ -107,7 +107,7 @@ class LoaderViewController: GCEventViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.addGradient(to: self.view)
+        addGradient()
         
         downloaderBox.addSubview(titleLabel)
         downloaderBox.addSubview(separatorYellow)
