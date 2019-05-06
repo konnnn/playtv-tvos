@@ -14,14 +14,27 @@ var playerIsPlaying: Bool = false
 var player: AVPlayer?
 let user = UserDefaults.standard
 
-enum LayerOrder: Int {
-    case player = 0
-    case gradient = 1
-    case downloaderBox = 255
-    case channelsCollectionView = 199
-    case headerView = 230
-    case spinner = 800
-    case clock = 999
+enum UserDefaultsKeys: String {
+    case PlaylistsURLs
+    case CurrentPlaylist
+    
+    func key() -> String {
+        return self.rawValue
+    }
+}
+
+enum Layer: Int {
+    case Player = 0
+    case Gradient = 1
+    case DownloaderBox = 255
+    case ChannelsCollectionView = 199
+    case HeaderView = 230
+    case Spinner = 800
+    case Clock = 999
+    
+    func order() -> Int {
+        return self.rawValue
+    }
 }
 
 class MainView: UIView {

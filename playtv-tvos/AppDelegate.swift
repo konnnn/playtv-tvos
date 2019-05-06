@@ -14,6 +14,7 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    private let yandexChannelsURL = "http://tv.evgenykonkin.ru/playlist/yandex-channels.txt"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -26,12 +27,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("\(Realm.Configuration.defaultConfiguration.fileURL!)\n\n" )
 
         do {
-            _ = try Realm()
+            let realm = try Realm()
+            
+            // Загружаем каналы Яндекс, если их нет в бд
+            let results: Results<YandexChannel>? = realm.objects(YandexChannel.self)
+            
+            if results?.count == 0 {
+                downloadYandexChannels(url: URL(string: yandexChannelsURL)!)
+                print("\n\n Каналы Яндекс загружены")
+            }
+            
         } catch {
             print("Error initialising new realm, \(error)")
         }
         
         return true
+    }
+    
+    private func downloadYandexChannels(url: URL) {
+        // http://tv.evgenykonkin.ru/playlist/yandex-channels.txt
+        
+        let task = URLSession.shared.downloadTask(with: url) { (localURL, urlResponse, error) in
+            
+            if let localURL = localURL, error == nil {
+                
+                if let channelsString = try? String(contentsOf: localURL) {
+                    
+                    let realm = try! Realm()
+                    
+                    // разбиваем строковый файл на строки в массив
+                    let linesArray: [String] = channelsString.components(separatedBy: .newlines)
+                    
+                    for line in linesArray {
+                        
+                        if line.trimmingCharacters(in: .whitespacesAndNewlines).count != 0 {
+                            let items = line.components(separatedBy: "|")
+                            
+                            let newChannel = YandexChannel()
+                            newChannel.yaid = Int(items[2])!
+                            newChannel.name = items[3]
+                            newChannel.synonyms = items[5].count == 0 ? "" : items[5]
+                            newChannel.desc = items[9].count == 0 ? "" : items[9]
+                            
+                            do {
+                                try realm.write {
+                                    realm.add(newChannel)
+                                }
+                            } catch {
+                                print("\n\n  !Error add new channel")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        task.resume()
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

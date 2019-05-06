@@ -10,8 +10,9 @@ import Foundation
 import RealmSwift
 
 class Playlist: Object {
-    @objc dynamic var title: String? = nil
-    @objc dynamic var dateAdded: Date?
+    @objc dynamic var id: String? = nil // уникальный id
+    @objc dynamic var title: String? = nil // название
+    @objc dynamic var dateAdded: Date? // дата добавления
     let channels = List<Channel>()
 }
 

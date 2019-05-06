@@ -22,7 +22,7 @@ open class Spinner {
             spinner?.style = .whiteLarge
             spinner?.color = .white
             spinner?.backgroundColor = UIColor.black.withAlphaComponent(backgroundAlpha)
-            view.insertSubview(spinner!, at: LayerOrder.spinner.rawValue)
+            view.insertSubview(spinner!, at: Layer.Spinner.order())
             spinner?.startAnimating()
             spinner?.hidesWhenStopped = true
             spinner?.layer.cornerRadius = cornerRadius

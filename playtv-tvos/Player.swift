@@ -53,7 +53,7 @@ class Player: NSObject {
     public static func add(to superView: UIView) {
         playerLayer = AVPlayerLayer(player: player)
         playerLayer.frame = superView.bounds
-        superView.layer.insertSublayer(playerLayer, at: UInt32(LayerOrder.player.rawValue))
+        superView.layer.insertSublayer(playerLayer, at: UInt32(Layer.Player.order()))
         print("\n\n  New PlayerLayer was Added to View")
     }
     

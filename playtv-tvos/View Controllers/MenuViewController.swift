@@ -89,12 +89,19 @@ class MenuViewController: GCEventViewController {
     
     func loadChannels() {
         
-        if let playlistByDate = user.object(forKey: "playlist") as? Date {
-            selectedPlaylist = realm.objects(Playlist.self).filter("date = '\(playlistByDate)'").first
+        // выбираем текущий плейлист из настроек пользователя
+        if let playlistID: String = user.object(forKey: UserDefaultsKeys.CurrentPlaylist.key()) as? String {
+            selectedPlaylist = realm.objects(Playlist.self).filter("id == '\(playlistID)'").first
+            print("\n\n Был выбран плейлист из настроек пользователя")
+            print("\n\n ID текущего плейлиста: \(playlistID)")
 
         } else {
-            let playlistByDate: Results<Playlist> = realm.objects(Playlist.self).sorted(byKeyPath: "dateAdded", ascending: true)
-            selectedPlaylist = playlistByDate.first
+            // если нет выбранного плейлиста, то берём последний добавленный в бд
+            let playlist: Results<Playlist> = realm.objects(Playlist.self).sorted(byKeyPath: "id", ascending: true)
+            selectedPlaylist = playlist.first
+            user.set("\(selectedPlaylist!.id!)", forKey: UserDefaultsKeys.CurrentPlaylist.key())
+            user.synchronize()
+            print("\n\n Плейлист добавлен в настройки пользователя")
         }
         
         channelsResults = selectedPlaylist?.channels.sorted(byKeyPath: "index", ascending: true)
@@ -120,20 +127,22 @@ class MenuViewController: GCEventViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        addGradient()
-        showViewAnimation()
+        addGradientToViewController()
+        showInterfaceAnimation()
     }
     
     // MARK: - Get Channel Logo
     
     func getCurrentChannelLogo(with name: String) -> UIImage {
-        guard let image = UIImage(named: "\(name)*68")?.resizeImage(to: CGSize(width: 400, height: 60)) else { return UIImage() }
+        guard let image = UIImage(named: "\(name)*68")?.resizeImage(to: CGSize(width: 400, height: 60)) else {
+            return UIImage()
+        }
         return image
     }
     
     // MARK: - Animations
     
-    func showViewAnimation() {
+    func showInterfaceAnimation() {
         topAnchor?.isActive = false
         bottomAnchor?.isActive = false
         topAnchor = topArea.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 80)
@@ -191,7 +200,7 @@ class MenuViewController: GCEventViewController {
         collectionView.register(UINib(nibName: "ChannelCell", bundle: nil), forCellWithReuseIdentifier: cellIdentifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.alpha = 0
-        self.view.insertSubview(collectionView, at: LayerOrder.channelsCollectionView.rawValue)
+        self.view.insertSubview(collectionView, at: Layer.ChannelsCollectionView.order())
         
         bottomAnchor?.isActive = false
         bottomAnchor = collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: self.view.frame.height)
@@ -205,7 +214,7 @@ class MenuViewController: GCEventViewController {
         playlistNameLabel.text = selectedPlaylist?.title?.uppercased()
         channelNameLabel.text = currentChannel?.name
         
-        self.view.insertSubview(topArea, at: LayerOrder.headerView.rawValue)
+        self.view.insertSubview(topArea, at: Layer.HeaderView.order())
         topArea.addSubview(logoLabel)
         topArea.addSubview(playlistLabel)
         topArea.addSubview(playlistNameLabel)
@@ -229,29 +238,40 @@ class MenuViewController: GCEventViewController {
         playlistLabel.topAnchor.constraint(equalTo: topArea.topAnchor, constant: 1).isActive = true
         playlistLabel.heightAnchor.constraint(equalToConstant: 16).isActive = true
         
-        playlistNameLabel.leadingAnchor.constraint(equalTo: logoLabel.trailingAnchor, constant: 12).isActive = true
-        playlistNameLabel.topAnchor.constraint(equalTo: playlistLabel.bottomAnchor, constant: -2).isActive = true
+        playlistNameLabel.leadingAnchor.constraint(equalTo: logoLabel.trailingAnchor, constant: 11).isActive = true
+        playlistNameLabel.topAnchor.constraint(equalTo: playlistLabel.bottomAnchor, constant: -3).isActive = true
         playlistNameLabel.heightAnchor.constraint(equalToConstant: 36).isActive = true
         
-        let channelLogo: UIImage? = getCurrentChannelLogo(with: "\(currentChannel!.yaid)")
-        if channelLogo?.imageAsset != nil {
-            print("\n\n THERE IS AN IMAGE")
-            channelLogoImage.image = channelLogo
+        // если текущий канал не пустой
+        if currentChannel != nil {
+            let channelLogo: UIImage? = getCurrentChannelLogo(with: "\(currentChannel!.yaid)")
+            if channelLogo?.imageAsset != nil {
+                print("\n\n THERE IS AN IMAGE")
+                channelLogoImage.image = channelLogo
+                
+                channelLogoImage.topAnchor.constraint(equalTo: topArea.topAnchor, constant: 0).isActive = true
+                channelLogoImage.trailingAnchor.constraint(equalTo: topArea.trailingAnchor, constant: 0).isActive = true
+                channelLogoImage.widthAnchor.constraint(equalToConstant: 400).isActive = true
+                channelLogoImage.heightAnchor.constraint(equalToConstant: 60).isActive = true
+                channelNameLabel.topAnchor.constraint(equalTo: channelLogoImage.bottomAnchor, constant: 10).isActive = true
+            } else {
+                print("\n\n NO IMAGE FOUND")
+                channelLogoImage.widthAnchor.constraint(equalToConstant: 0).isActive = true
+                channelLogoImage.heightAnchor.constraint(equalToConstant: 0).isActive = true
+                channelNameLabel.topAnchor.constraint(equalTo: topArea.topAnchor, constant: 0).isActive = true
+            }
             
-            channelLogoImage.topAnchor.constraint(equalTo: topArea.topAnchor, constant: 0).isActive = true
-            channelLogoImage.trailingAnchor.constraint(equalTo: topArea.trailingAnchor, constant: 0).isActive = true
-            channelLogoImage.widthAnchor.constraint(equalToConstant: 400).isActive = true
-            channelLogoImage.heightAnchor.constraint(equalToConstant: 60).isActive = true
-            channelNameLabel.topAnchor.constraint(equalTo: channelLogoImage.bottomAnchor, constant: 10).isActive = true
+            channelNameLabel.trailingAnchor.constraint(equalTo: topArea.trailingAnchor, constant: 0).isActive = true
+            channelNameLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
         } else {
-            print("\n\n NO IMAGE FOUND")
+            // если пустой
             channelLogoImage.widthAnchor.constraint(equalToConstant: 0).isActive = true
             channelLogoImage.heightAnchor.constraint(equalToConstant: 0).isActive = true
-            channelNameLabel.topAnchor.constraint(equalTo: topArea.topAnchor, constant: 0).isActive = true
+            channelNameLabel.heightAnchor.constraint(equalToConstant: 0).isActive = true
         }
         
-        channelNameLabel.trailingAnchor.constraint(equalTo: topArea.trailingAnchor, constant: 0).isActive = true
-        channelNameLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
     }
     
     // MARK: - Tap Gestures
@@ -289,7 +309,7 @@ class MenuViewController: GCEventViewController {
             print("\n\n  Error to play selected channel: \(error)")
         }
         
-        removeGradient()
+        removeGradientFromViewController()
         delegate?.channelSelectionPressed(currentChannel: channel)
         dismissViewControllerAnimation()
     }

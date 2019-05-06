@@ -17,7 +17,7 @@ class ChannelCell: UICollectionViewCell {
         didSet {
             if let name = channel?.name {
                 nameLabel.text = name
-                if let image = UIImage(named: "\(channel!.yaid)") {
+                if let image = UIImage(named: "\(channel!.yaid)*68") {
                     logoImage.image = image
                 } else {
                     logoImage.image = UIImage()

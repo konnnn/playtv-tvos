@@ -11,6 +11,8 @@ import GameController
 
 class LoaderViewController: GCEventViewController {
     
+    // MARK: - Set Up Views, Labels and etc
+    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Новый плейлист"
@@ -103,11 +105,13 @@ class LoaderViewController: GCEventViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    // MARK: - Views Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addGradient()
+        addGradientToViewController()
         
         downloaderBox.addSubview(titleLabel)
         downloaderBox.addSubview(separatorYellow)
@@ -116,7 +120,7 @@ class LoaderViewController: GCEventViewController {
         downloaderBox.addSubview(urlTextField)
         downloaderBox.addSubview(textFieldURLLabel)
         downloaderBox.addSubview(saveButton)
-        self.view.insertSubview(downloaderBox, at: LayerOrder.downloaderBox.rawValue)
+        self.view.insertSubview(downloaderBox, at: Layer.DownloaderBox.order())
         
         nameTextField.delegate = self
         urlTextField.delegate = self
@@ -185,6 +189,7 @@ class LoaderViewController: GCEventViewController {
                 } else {
                     print("\n\n Failure: \(message)")
                 }
+                
                 self.dismiss(animated: true, completion: {
                     print("\n\n LoaderViewController is dismissed")
                 })
