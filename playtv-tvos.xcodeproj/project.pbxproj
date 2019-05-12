@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		44087714227779D3006A2081 /* ChannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44087712227779D3006A2081 /* ChannelCell.swift */; };
-		44087715227779D3006A2081 /* ChannelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44087713227779D3006A2081 /* ChannelCell.xib */; };
 		44087718227B56CB006A2081 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44087717227B56CB006A2081 /* UIImage+Resize.swift */; };
 		441722F822692706005B7C2A /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441722F722692706005B7C2A /* Playlist.swift */; };
 		441722FA2269270F005B7C2A /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441722F92269270F005B7C2A /* Channel.swift */; };
@@ -18,6 +17,8 @@
 		44172303226B0235005B7C2A /* CAGradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44172302226B0235005B7C2A /* CAGradientLayer.swift */; };
 		44172305226B0314005B7C2A /* UIFont+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44172304226B0314005B7C2A /* UIFont+UIColor.swift */; };
 		4417230C226BE875005B7C2A /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4417230B226BE875005B7C2A /* Spinner.swift */; };
+		4446C3782280FC110077D47B /* DispatchQueue+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4446C3772280FC110077D47B /* DispatchQueue+Background.swift */; };
+		4446C37A22836B040077D47B /* ChannelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4446C37922836B040077D47B /* ChannelCell.xib */; };
 		445A763B226CDA4F00455C18 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445A763A226CDA4F00455C18 /* Clock.swift */; };
 		445A763C226CE86200455C18 /* PTSans-NarrowBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 445A7638226C784E00455C18 /* PTSans-NarrowBold.ttf */; };
 		445A763D226CE86500455C18 /* PTSans-Narrow.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 445A7637226C784E00455C18 /* PTSans-Narrow.ttf */; };
@@ -29,12 +30,15 @@
 		446FFA5922691D810078D778 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 446FFA5822691D810078D778 /* Assets.xcassets */; };
 		4489354D226FADC500A691AF /* LoaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4489354C226FADC500A691AF /* LoaderViewController.swift */; };
 		44A3AE672270B7D70025B7DE /* !!!! DownloaderBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A3AE662270B7D70025B7DE /* !!!! DownloaderBox.swift */; };
+		44E3269622837F5900A786D9 /* ChannelProgramCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E3269422837F5900A786D9 /* ChannelProgramCell.swift */; };
+		44E3269722837F5900A786D9 /* ChannelProgramCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44E3269522837F5900A786D9 /* ChannelProgramCell.xib */; };
+		44E3269922838AC200A786D9 /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E3269822838AC200A786D9 /* Program.swift */; };
+		44E3269B2287075800A786D9 /* DownloadProgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E3269A2287075800A786D9 /* DownloadProgram.swift */; };
 		C9AB4D96AA1477F8554ECF30 /* Pods_playtv_tvos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACEAA85F912EE937E59B7084 /* Pods_playtv_tvos.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		44087712227779D3006A2081 /* ChannelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelCell.swift; sourceTree = "<group>"; };
-		44087713227779D3006A2081 /* ChannelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChannelCell.xib; sourceTree = "<group>"; };
 		44087717227B56CB006A2081 /* UIImage+Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
 		441722F722692706005B7C2A /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		441722F92269270F005B7C2A /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
@@ -44,6 +48,8 @@
 		44172302226B0235005B7C2A /* CAGradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAGradientLayer.swift; sourceTree = "<group>"; };
 		44172304226B0314005B7C2A /* UIFont+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+UIColor.swift"; sourceTree = "<group>"; };
 		4417230B226BE875005B7C2A /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
+		4446C3772280FC110077D47B /* DispatchQueue+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Background.swift"; sourceTree = "<group>"; };
+		4446C37922836B040077D47B /* ChannelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChannelCell.xib; sourceTree = "<group>"; };
 		445A7637226C784E00455C18 /* PTSans-Narrow.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PTSans-Narrow.ttf"; sourceTree = "<group>"; };
 		445A7638226C784E00455C18 /* PTSans-NarrowBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PTSans-NarrowBold.ttf"; sourceTree = "<group>"; };
 		445A763A226CDA4F00455C18 /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
@@ -57,6 +63,10 @@
 		446FFA5A22691D810078D778 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4489354C226FADC500A691AF /* LoaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderViewController.swift; sourceTree = "<group>"; };
 		44A3AE662270B7D70025B7DE /* !!!! DownloaderBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "!!!! DownloaderBox.swift"; sourceTree = "<group>"; };
+		44E3269422837F5900A786D9 /* ChannelProgramCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelProgramCell.swift; sourceTree = "<group>"; };
+		44E3269522837F5900A786D9 /* ChannelProgramCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChannelProgramCell.xib; sourceTree = "<group>"; };
+		44E3269822838AC200A786D9 /* Program.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
+		44E3269A2287075800A786D9 /* DownloadProgram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadProgram.swift; sourceTree = "<group>"; };
 		85F360040ACF09DC2253EA12 /* Pods-playtv-tvos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-playtv-tvos.release.xcconfig"; path = "Target Support Files/Pods-playtv-tvos/Pods-playtv-tvos.release.xcconfig"; sourceTree = "<group>"; };
 		ACEAA85F912EE937E59B7084 /* Pods_playtv_tvos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_playtv_tvos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB0972AA680226A7B3FC83DE /* Pods-playtv-tvos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-playtv-tvos.debug.xcconfig"; path = "Target Support Files/Pods-playtv-tvos/Pods-playtv-tvos.debug.xcconfig"; sourceTree = "<group>"; };
@@ -95,7 +105,9 @@
 			isa = PBXGroup;
 			children = (
 				44087712227779D3006A2081 /* ChannelCell.swift */,
-				44087713227779D3006A2081 /* ChannelCell.xib */,
+				4446C37922836B040077D47B /* ChannelCell.xib */,
+				44E3269422837F5900A786D9 /* ChannelProgramCell.swift */,
+				44E3269522837F5900A786D9 /* ChannelProgramCell.xib */,
 			);
 			path = "Collection View Cells";
 			sourceTree = "<group>";
@@ -105,6 +117,7 @@
 			children = (
 				441722F722692706005B7C2A /* Playlist.swift */,
 				441722F92269270F005B7C2A /* Channel.swift */,
+				44E3269822838AC200A786D9 /* Program.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -116,6 +129,7 @@
 				44172304226B0314005B7C2A /* UIFont+UIColor.swift */,
 				445A763E226CEB7E00455C18 /* UILabel+Padding.swift */,
 				44087717227B56CB006A2081 /* UIImage+Resize.swift */,
+				4446C3772280FC110077D47B /* DispatchQueue+Background.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -157,6 +171,7 @@
 				4417230B226BE875005B7C2A /* Spinner.swift */,
 				44A3AE662270B7D70025B7DE /* !!!! DownloaderBox.swift */,
 				44694C632270E46D00CDD166 /* DownloadHandler.swift */,
+				44E3269A2287075800A786D9 /* DownloadProgram.swift */,
 				44087716227779DB006A2081 /* Collection View Cells */,
 				44172306226B033D005B7C2A /* Extensions */,
 				441722FB226929C6005B7C2A /* Data Model */,
@@ -260,11 +275,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4446C37A22836B040077D47B /* ChannelCell.xib in Resources */,
 				445A763D226CE86500455C18 /* PTSans-Narrow.ttf in Resources */,
+				44E3269722837F5900A786D9 /* ChannelProgramCell.xib in Resources */,
 				446FFA5922691D810078D778 /* Assets.xcassets in Resources */,
 				446FFA5722691D7F0078D778 /* Main.storyboard in Resources */,
 				445A763C226CE86200455C18 /* PTSans-NarrowBold.ttf in Resources */,
-				44087715227779D3006A2081 /* ChannelCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,17 +340,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44E3269922838AC200A786D9 /* Program.swift in Sources */,
 				445A763F226CEB7E00455C18 /* UILabel+Padding.swift in Sources */,
 				4417230C226BE875005B7C2A /* Spinner.swift in Sources */,
 				446FFA5422691D7F0078D778 /* MainViewController.swift in Sources */,
+				44E3269622837F5900A786D9 /* ChannelProgramCell.swift in Sources */,
 				441722FA2269270F005B7C2A /* Channel.swift in Sources */,
 				44A3AE672270B7D70025B7DE /* !!!! DownloaderBox.swift in Sources */,
 				44087714227779D3006A2081 /* ChannelCell.swift in Sources */,
 				44694C642270E46D00CDD166 /* DownloadHandler.swift in Sources */,
 				446FFA5222691D7F0078D778 /* AppDelegate.swift in Sources */,
 				4489354D226FADC500A691AF /* LoaderViewController.swift in Sources */,
+				44E3269B2287075800A786D9 /* DownloadProgram.swift in Sources */,
 				44172303226B0235005B7C2A /* CAGradientLayer.swift in Sources */,
 				44172301226A9663005B7C2A /* MenuViewController.swift in Sources */,
+				4446C3782280FC110077D47B /* DispatchQueue+Background.swift in Sources */,
 				44172305226B0314005B7C2A /* UIFont+UIColor.swift in Sources */,
 				441722FF226A4289005B7C2A /* Player.swift in Sources */,
 				441722FD22695489005B7C2A /* Helpers.swift in Sources */,

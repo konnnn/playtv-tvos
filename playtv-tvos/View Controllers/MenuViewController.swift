@@ -12,7 +12,7 @@ import GameController
 import RealmSwift
 
 protocol MenuViewControllerDelegate: class {
-    func channelSelectionPressed(currentChannel: CurrentChannel)
+    func channelSelectionPressed(channelURL: String)
 }
 
 class MenuViewController: GCEventViewController {
@@ -20,7 +20,10 @@ class MenuViewController: GCEventViewController {
     var delegate: MenuViewControllerDelegate?
     
     var collectionView: UICollectionView!
-    var cellIdentifier = "Cell"
+    var cellIdentifier = CellIdentifier.StandardCell.identifier()
+    var cellNibName = CellNibName.ChannelCell.nibName()
+    var cellHeight = CellHeight.Standard.height()
+    var ChannelCellObject: Any?
     var topAnchor: NSLayoutConstraint?
     var bottomAnchor: NSLayoutConstraint?
     
@@ -80,7 +83,11 @@ class MenuViewController: GCEventViewController {
         let label = UILabel()
         label.text = "Канал"
         label.textColor = .white
+        label.textAlignment = .right
+//        label.contentMode = UIView.ContentMode.topRight
         label.font = UIFont.sansNarrowBold(size: 34)
+        label.lineBreakMode = .byClipping
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -104,8 +111,8 @@ class MenuViewController: GCEventViewController {
             print("\n\n Плейлист добавлен в настройки пользователя")
         }
         
-        channelsResults = selectedPlaylist?.channels.sorted(byKeyPath: "index", ascending: true)
         currentChannel = realm.objects(CurrentChannel.self).first
+        channelsResults = selectedPlaylist?.channels.sorted(byKeyPath: "index", ascending: true)
     }
     
     // MARK: - Views Life Cycle Methods
@@ -140,6 +147,27 @@ class MenuViewController: GCEventViewController {
         return image
     }
     
+    // MARK: - Get Program Title
+    
+    func getProgramTitle(from program: Program) -> String {
+        
+        var title: String?
+        
+        if program.programTitle == program.episodeTitle {
+            title = "\(program.programTitle!)"
+        } else {
+            if program.seasonNumber == 0 {
+                title = "\(program.programTitle!). \(program.episodeTitle!)"
+            } else {
+                let seasonNumber: String = "\(program.seasonNumber)"
+                title = "\(program.programTitle!). Сезон \(seasonNumber). \(program.episodeTitle!)"
+            }
+            
+        }
+        
+        return title!
+    }
+    
     // MARK: - Animations
     
     func showInterfaceAnimation() {
@@ -149,7 +177,7 @@ class MenuViewController: GCEventViewController {
         bottomAnchor = collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -54)
         topAnchor?.isActive = true
         bottomAnchor?.isActive = true
-        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
             self.topArea.alpha = 1
             self.collectionView.alpha = 1
             self.view.layoutIfNeeded()
@@ -184,20 +212,39 @@ class MenuViewController: GCEventViewController {
     // MARK: - Set up Views
     
     func setUpCollectionView() {
-        cellIdentifier = "Cell"
+        
+        let cell = user.object(forKey: UserDefaultsKeys.ChannelCell.key()) as? String
+        
+        if cell == CellIdentifier.ProgramCell.identifier() {
+            cellIdentifier = CellIdentifier.ProgramCell.identifier()
+            cellNibName = CellNibName.ChannelProgramCell.nibName()
+            cellHeight = CellHeight.Program.height()
+            ChannelCellObject = ChannelCell()
+ 
+        } else if cell == CellIdentifier.ProgramNextCell.identifier() {
+            cellIdentifier = CellIdentifier.ProgramNextCell.identifier()
+            cellNibName = CellNibName.ChannelProgramNextCell.nibName()
+            cellHeight = CellHeight.ProgramNext.height()
+            ChannelCellObject = ChannelProgramCell()
+        
+        } else {
+            cellIdentifier = CellIdentifier.StandardCell.identifier()
+            cellNibName = CellNibName.ChannelCell.nibName()
+            cellHeight = CellHeight.Standard.height()
+        }
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: 500, height: 80)
+        layout.itemSize = CGSize(width: 500, height: cellHeight)
         layout.scrollDirection = .horizontal
         
-        collectionView = UICollectionView(frame: CGRect(x: 0, y: self.view.frame.height, width: self.view.frame.width, height: 80), collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: CGRect(x: 0, y: self.view.frame.height, width: self.view.frame.width, height: cellHeight), collectionViewLayout: layout)
         
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.remembersLastFocusedIndexPath = true
         
-        collectionView.register(UINib(nibName: "ChannelCell", bundle: nil), forCellWithReuseIdentifier: cellIdentifier)
+        collectionView.register(UINib(nibName: cellNibName, bundle: nil), forCellWithReuseIdentifier: cellIdentifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.alpha = 0
         self.view.insertSubview(collectionView, at: Layer.ChannelsCollectionView.order())
@@ -207,12 +254,11 @@ class MenuViewController: GCEventViewController {
         bottomAnchor?.isActive = true
         collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: cellHeight).isActive = true
     }
     
     func setUpTopArea() {
         playlistNameLabel.text = selectedPlaylist?.title?.uppercased()
-        channelNameLabel.text = currentChannel?.name
         
         self.view.insertSubview(topArea, at: Layer.HeaderView.order())
         topArea.addSubview(logoLabel)
@@ -225,7 +271,7 @@ class MenuViewController: GCEventViewController {
         // add constraits
         topArea.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 80).isActive = true
         topArea.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -80).isActive = true
-        topArea.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        topArea.heightAnchor.constraint(equalToConstant: 450).isActive = true
         topAnchor?.isActive = false
         topAnchor = topArea.topAnchor.constraint(equalTo: self.view.topAnchor, constant: -400)
         topAnchor?.isActive = true
@@ -245,6 +291,18 @@ class MenuViewController: GCEventViewController {
         // если текущий канал не пустой
         if currentChannel != nil {
             let channelLogo: UIImage? = getCurrentChannelLogo(with: "\(currentChannel!.yaid)")
+            
+            let localDate = Calendar.current.date(byAdding: .hour, value: -1, to: Date())
+            print("\n\n  Текущий канал: \(currentChannel!.name!)")
+            let channel = selectedPlaylist?.channels.filter("name = %@", currentChannel!.name!)
+            let program = channel?.first!.program.filter("start <= %@ AND finish > %@", localDate!, localDate!).sorted(byKeyPath: "start")
+            
+            if program!.count != 0 {
+                channelNameLabel.text = getProgramTitle(from: (program?.first)!)
+            } else {
+                channelNameLabel.text = currentChannel?.name
+            }
+           
             if channelLogo?.imageAsset != nil {
                 print("\n\n THERE IS AN IMAGE")
                 channelLogoImage.image = channelLogo
@@ -262,56 +320,77 @@ class MenuViewController: GCEventViewController {
             }
             
             channelNameLabel.trailingAnchor.constraint(equalTo: topArea.trailingAnchor, constant: 0).isActive = true
-            channelNameLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+            channelNameLabel.widthAnchor.constraint(equalToConstant: 350).isActive = true
+//            channelNameLabel.heightAnchor.constraint(equalToConstant: 180).isActive = true
+//            channelNameLabel.bottomAnchor.constraint(equalTo: topArea.bottomAnchor).isActive = true
         
         } else {
             // если пустой
             channelLogoImage.widthAnchor.constraint(equalToConstant: 0).isActive = true
             channelLogoImage.heightAnchor.constraint(equalToConstant: 0).isActive = true
-            channelNameLabel.heightAnchor.constraint(equalToConstant: 0).isActive = true
+            channelNameLabel.widthAnchor.constraint(equalToConstant: 0).isActive = true
+//            channelNameLabel.heightAnchor.constraint(equalToConstant: 0).isActive = true
         }
-        
         
     }
     
     // MARK: - Tap Gestures
     
     @objc func pressCell(gesture: UITapGestureRecognizer) {
-        guard let cell = gesture.view as? ChannelCell else { return }
         
-        let channel = CurrentChannel()
-        channel.index = cell.channel?.index ?? 0
-        channel.yaid = cell.channel?.yaid ?? 0
-        channel.name = cell.channel?.name
-        channel.genre = cell.channel?.genre
-        channel.genreID = cell.channel?.genreID ?? 0
-        channel.url = cell.channel?.url
+        switch cellIdentifier {
+        case CellIdentifier.StandardCell.identifier():
+            guard let cell = gesture.view as? ChannelCell else { return }
+            saveCurrentChannel(channel: cell.channel!)
+            
+            removeGradientFromViewController()
+            delegate?.channelSelectionPressed(channelURL: cell.channel!.url!)
+            dismissViewControllerAnimation()
+            
+        case CellIdentifier.ProgramCell.identifier():
+            guard let cell = gesture.view as? ChannelProgramCell else { return }
+            saveCurrentChannel(channel: cell.channel!)
+            
+            removeGradientFromViewController()
+            delegate?.channelSelectionPressed(channelURL: cell.channel!.url!)
+            dismissViewControllerAnimation()
+            
+        case CellIdentifier.ProgramNextCell.identifier():
+            guard let cell = gesture.view as? ChannelProgramCell else { return }
+            saveCurrentChannel(channel: cell.channel!)
+            
+            removeGradientFromViewController()
+            delegate?.channelSelectionPressed(channelURL: cell.channel!.url!)
+            dismissViewControllerAnimation()
+            
+        default:
+            break
+        }
+    }
+    
+    // MARK: - Save Current Channel
+    
+    func saveCurrentChannel(channel: Channel) {
+        
+        let channelToSave = CurrentChannel()
+        channelToSave.primaryKey = 1
+        channelToSave.index = channel.index
+        channelToSave.yaid = channel.yaid
+        channelToSave.name = channel.name
+        channelToSave.genre = channel.genre
+        channelToSave.genreID = channel.genreID
+        channelToSave.url = channel.url
         
         do {
-            if currentChannel != nil {
-                // обновляем объект в бд
-                try realm.write {
-                    currentChannel!.index = channel.index
-                    currentChannel!.yaid = channel.yaid
-                    currentChannel!.name = channel.name
-                    currentChannel!.genre = channel.genre
-                    currentChannel!.genreID = channel.genreID
-                    currentChannel!.url = channel.url
-                }
-            } else {
-                // добавляем в бд
-                try realm.write {
-                    realm.add(channel)
-                }
+            // обновляем/добавляем(если нет) объект в бд
+            try realm.write {
+                realm.add(channelToSave, update: true)
             }
             
         } catch {
             print("\n\n  Error to play selected channel: \(error)")
         }
         
-        removeGradientFromViewController()
-        delegate?.channelSelectionPressed(currentChannel: channel)
-        dismissViewControllerAnimation()
     }
     
     // MARK: - Collection View Focus Environment
@@ -352,22 +431,101 @@ extension MenuViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
         return channelsResults?.count ?? 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! ChannelCell
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
-        cell.channel = channelsResults![indexPath.item]
-
-        if cell.gestureRecognizers?.count == nil {
-            let press = UITapGestureRecognizer(target: self, action: #selector(pressCell(gesture:)))
-            press.allowedPressTypes = [NSNumber(integerLiteral: UIPress.PressType.select.rawValue)]
-            cell.addGestureRecognizer(press)
+        switch cellIdentifier {
+        case CellIdentifier.ProgramCell.identifier():
+            let cell = cell as! ChannelProgramCell
+            
+            if cell.channel?.yaid != 0 {
+                
+                let localDate = Calendar.current.date(byAdding: .hour, value: -1, to: Date())
+                let program = cell.channel?.program.filter("start <= %@ AND finish > %@", localDate!, localDate!).sorted(byKeyPath: "start")
+                
+                if program?.count != 0 {
+                    cell.programNameLabel.text = getProgramTitle(from: (program?.first)!)
+                    
+                } else {
+                    
+                    DownloadProgram.download(yaid: (cell.channel?.yaid)!, completion: { (programList, success) in
+                        // do what you want with programList
+                        
+                        if programList.count != 0 {
+                            
+                            main(task: {
+                                cell.programNameLabel.text = self.getProgramTitle(from: programList.first!)
+                                try! self.realm.write {
+                                    self.selectedPlaylist?.channels[indexPath.item].program.append(objectsIn: programList)
+                                }
+                            })
+                            
+                        } else {
+                            main(task: {
+                                cell.programNameLabel.text = "Программа недоступна"
+                            })
+                        }
+                    })
+                    
+                }
+                
+            } else {
+                cell.programNameLabel.text = "Программа недоступна"
+            }
+            
+        case CellIdentifier.ProgramNextCell.identifier():
+            let cell = cell as! ChannelProgramCell
+            cell.programNameLabel.text = "Программа недоступна"
+            
+        default:
+            break
         }
         
-        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        switch cellIdentifier {
+        case CellIdentifier.ProgramCell.identifier():
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! ChannelProgramCell
+            cell.channel = channelsResults![indexPath.item]
+            
+            if cell.gestureRecognizers?.count == nil {
+                let press = UITapGestureRecognizer(target: self, action: #selector(pressCell(gesture:)))
+                press.allowedPressTypes = [NSNumber(integerLiteral: UIPress.PressType.select.rawValue)]
+                cell.addGestureRecognizer(press)
+            }
+            
+            return cell
+            
+        case CellIdentifier.ProgramNextCell.identifier():
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! ChannelProgramCell
+            cell.channel = channelsResults![indexPath.item]
+            
+            if cell.gestureRecognizers?.count == nil {
+                let press = UITapGestureRecognizer(target: self, action: #selector(pressCell(gesture:)))
+                press.allowedPressTypes = [NSNumber(integerLiteral: UIPress.PressType.select.rawValue)]
+                cell.addGestureRecognizer(press)
+            }
+            
+            return cell
+        
+        default:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! ChannelCell
+            cell.channel = channelsResults![indexPath.item]
+            
+            if cell.gestureRecognizers?.count == nil {
+                let press = UITapGestureRecognizer(target: self, action: #selector(pressCell(gesture:)))
+                press.allowedPressTypes = [NSNumber(integerLiteral: UIPress.PressType.select.rawValue)]
+                cell.addGestureRecognizer(press)
+            }
+            
+            return cell
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 500, height: 80)
+        return CGSize(width: 500, height: cellHeight)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

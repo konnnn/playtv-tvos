@@ -1,23 +1,28 @@
 //
-//  ChannelCell.swift
+//  ChannelProgramCell.swift
 //  playtv-tvos
 //
-//  Created by Evgeny Konkin on 29.04.2019.
+//  Created by Evgeny Konkin on 09.05.2019.
 //  Copyright © 2019 Evgeny Konkin. All rights reserved.
 //
 
 import UIKit
 
-class ChannelCell: UICollectionViewCell {
+class ChannelProgramCell: UICollectionViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var programNameLabel: UILabel!
     @IBOutlet weak var logoImage: UIImageView!
+    @IBOutlet weak var progressView: UIView!
+    @IBOutlet weak var progressContainerView: UIView!
     @IBOutlet weak var imageWidthConstraint: NSLayoutConstraint!
     
     var channel: Channel? {
         didSet {
             if let name = channel?.name {
+                
                 nameLabel.text = name
+                
                 if let image = UIImage(named: "\(channel!.yaid)*68") {
                     logoImage.image = image
                     imageWidthConstraint.constant = 110
@@ -25,6 +30,31 @@ class ChannelCell: UICollectionViewCell {
                     logoImage.image = UIImage()
                     imageWidthConstraint.constant = 0
                 }
+                
+                let localDate = Calendar.current.date(byAdding: .hour, value: -1, to: Date())
+                let program = channel?.program.filter("start <= %@ AND finish > %@", localDate!, localDate!).sorted(byKeyPath: "start")
+                
+                if program!.count != 0 {
+                    
+                    var title: String?
+                                
+                    if program!.first?.programTitle == program!.first?.episodeTitle {
+                        title = "\(program!.first!.programTitle!)"
+                    } else {
+                        if program!.first?.seasonNumber == 0 {
+                            title = "\(program!.first!.programTitle!). \(program!.first!.episodeTitle!)"
+                        } else {
+                            let seasonNumber: String = "\(program!.first!.seasonNumber)"
+                            title = "\(program!.first!.programTitle!). Сезон \(seasonNumber). \(program!.first!.episodeTitle!)"
+                        }
+                    }
+                    
+                    programNameLabel.text = "- \(title!)"
+
+                } else {
+                    programNameLabel.text = "Загрузка..."
+                }
+                
             }
         }
     }
@@ -34,6 +64,8 @@ class ChannelCell: UICollectionViewCell {
         
         nameLabel.textColor = .white
         nameLabel.font = UIFont.sansNarrowBold(size: 34)
+        programNameLabel.textColor = .white
+        programNameLabel.font = UIFont.sansNarrowRegular(size: 28)
         
         logoImage.contentMode = .scaleAspectFit
         
@@ -56,4 +88,5 @@ class ChannelCell: UICollectionViewCell {
             
         }
     }
+    
 }

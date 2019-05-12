@@ -14,6 +14,10 @@ class Playlist: Object {
     @objc dynamic var title: String? = nil // название
     @objc dynamic var dateAdded: Date? // дата добавления
     let channels = List<Channel>()
+    
+    override static func primaryKey() -> String? {
+        return "id"
+    }
 }
 
 extension Playlist {

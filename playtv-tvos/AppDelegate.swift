@@ -18,6 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        if user.object(forKey: "ChannelCell") == nil {
+            user.set(CellIdentifier.ProgramCell.identifier(), forKey: "ChannelCell")
+        }
+        
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback, options: .mixWithOthers)
         } catch {

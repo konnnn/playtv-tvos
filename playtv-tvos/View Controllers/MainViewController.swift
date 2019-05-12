@@ -15,7 +15,6 @@ class MainViewController: GCEventViewController {
     
     let realm = try! Realm()
     var currentChannel: CurrentChannel?
-    var channelsResult: Results<Channel>?
     var playlist = Playlist()
     
     // MARK: - Views Life Cycle
@@ -122,12 +121,10 @@ class MainViewController: GCEventViewController {
     }
     
     func setUpPlayer() {
-        
         currentChannel = realm.objects(CurrentChannel.self).first
         
-        if currentChannel != nil {
-            
-            channelSelectionPressed(currentChannel: currentChannel!)
+        if let url = currentChannel?.url {
+            channelSelectionPressed(channelURL: url)
             print("\n\n  Current Channel: \((currentChannel?.name)!)")
             
         } else {
@@ -144,13 +141,13 @@ class MainViewController: GCEventViewController {
 
 extension MainViewController: MenuViewControllerDelegate {
     
-    func channelSelectionPressed(currentChannel: CurrentChannel) {
+    func channelSelectionPressed(channelURL: String) {
        
         print("\n\n Main Delegate is ON")
         
         self.view.backgroundColor = .black
         
-        if let urlString = currentChannel.url, let url = URL(string: urlString) {
+        if let url = URL(string: channelURL) {
             
             let playerSublayer = self.view.layer.sublayers?.filter({ $0 is AVPlayerLayer }).count
             if playerSublayer == 0 {

@@ -17,8 +17,40 @@ let user = UserDefaults.standard
 enum UserDefaultsKeys: String {
     case PlaylistsURLs
     case CurrentPlaylist
+    case ShowProgram
+    case ChannelCell
     
     func key() -> String {
+        return self.rawValue
+    }
+}
+
+enum CellIdentifier: String {
+    case StandardCell
+    case ProgramCell
+    case ProgramNextCell
+    
+    func identifier() -> String {
+        return self.rawValue
+    }
+}
+
+enum CellNibName: String {
+    case ChannelCell
+    case ChannelProgramCell
+    case ChannelProgramNextCell
+    
+    func nibName() -> String {
+        return self.rawValue
+    }
+}
+
+enum CellHeight: CGFloat {
+    case Standard = 80
+    case Program = 129
+    case ProgramNext = 213
+    
+    func height() -> CGFloat {
         return self.rawValue
     }
 }

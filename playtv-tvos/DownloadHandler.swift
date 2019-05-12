@@ -90,7 +90,7 @@ class DownloadHandler: NSObject {
                                 // добавляем канал в новый плейлист
                                 newPlaylist.channels.append(channel)
                                 
-                                print("  \(channel.index). \(channel.name!) / \(channel.genre) / \(channel.url!)")
+                                print("  \(channel.index). \(channel.name!) / \(channel.genre!) / \(channel.url!)")
                                 
                                 // обнуляем переменные объекта
                                 channel = Channel()
@@ -107,7 +107,7 @@ class DownloadHandler: NSObject {
                                 
                                 savePlaylistURLForUser(name: trimmingName, url: urlStringTrimmed)
                                 
-                                message = "Загрузка завершена успешно"
+                                message = "Загрузка успешно завершена"
                                 failure = false
                                 
                             } catch {
@@ -177,8 +177,6 @@ class DownloadHandler: NSObject {
                 print("\n\n Плейлист пользователя пустой!")
             }
             
-            
-            
             if !isTherePlaylistLikeThat {
                 userPlaylistURLs.append(enteredURL)
                 user.set(userPlaylistURLs, forKey: UserDefaultsKeys.PlaylistsURLs.key())
@@ -204,7 +202,7 @@ class DownloadHandler: NSObject {
         for channel in results! {
             
             var synonyms = channel.synonyms?.components(separatedBy: ",")
-            synonyms?.append(channel.name!)
+            synonyms?.insert(channel.name!, at: 0)
             
             for synonym in synonyms! {
                 if synonym.caseInsensitiveCompare(name) == .orderedSame {

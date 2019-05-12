@@ -56,6 +56,7 @@ class LoaderViewController: GCEventViewController {
         textField.textAlignment = .center
         textField.placeholder = "URL-адрес"
         textField.keyboardAppearance = .dark
+        textField.keyboardType = UIKeyboardType.URL
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -168,6 +169,15 @@ class LoaderViewController: GCEventViewController {
         saveButton.heightAnchor.constraint(equalToConstant: 54).isActive = true
         
         print("\n\n  Loader View Controller")
+        
+        if let userChannel = user.object(forKey: UserDefaultsKeys.PlaylistsURLs.key()) as? [[String: Any]], let channel = userChannel.first {
+            nameTextField.text = channel["name"] as? String
+            urlTextField.text = channel["url"] as? String
+            saveButton.layer.backgroundColor = UIColor(hexString: "#3FDE10").cgColor
+            saveButton.isEnabled = true
+            print("\n\n NAME и URL плейлиста были взяты из настроек пользователя")
+        }
+        
     }
     
     func setPopupPresentation() {
