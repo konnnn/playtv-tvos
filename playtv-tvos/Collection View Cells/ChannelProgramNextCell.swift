@@ -1,20 +1,23 @@
 //
-//  ChannelProgramCell.swift
+//  ChannelProgramNextCell.swift
 //  playtv-tvos
 //
-//  Created by Evgeny Konkin on 09.05.2019.
+//  Created by Evgeny Konkin on 12.05.2019.
 //  Copyright © 2019 Evgeny Konkin. All rights reserved.
 //
 
 import UIKit
 
-class ChannelProgramCell: UICollectionViewCell {
+class ChannelProgramNextCell: UICollectionViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var programNameLabel: UILabel!
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var imageWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var separatorView: UIView!
+    @IBOutlet weak var programNextNameLabel: UILabel!
+    @IBOutlet weak var programNextTimeLabel: UILabel!
     
     var channel: Channel? {
         didSet {
@@ -31,15 +34,24 @@ class ChannelProgramCell: UICollectionViewCell {
                 }
                 
                 let localDate = Calendar.current.date(byAdding: .hour, value: -1, to: Date())
-                let program = channel?.program.filter("start <= %@ AND finish > %@", localDate!, localDate!).sorted(byKeyPath: "start")
+                let program = channel?.program.filter("finish > %@", localDate!).sorted(byKeyPath: "start")
                 
-                if program!.count != 0 {
+                if program!.count > 1 {
                     programNameLabel.text = ProgramGuide.getTitle(from: program![0])
                     progressView.setProgress(ProgramGuide.getProgressTime(from: program![0]), animated: true)
-
+                    programNextTimeLabel.text = ProgramGuide.getTimeLeft(from: program![1])
+                    programNextNameLabel.text = ProgramGuide.getTitle(from: program![1])
+                    
+                } else if program!.count == 1 {
+                    programNameLabel.text = ProgramGuide.getTitle(from: program![0])
+                    progressView.setProgress(ProgramGuide.getProgressTime(from: program![0]), animated: true)
+                    programNextTimeLabel.text = "Далее, ..."
+                    programNextNameLabel.text = "Загрузка..."
+                    
                 } else {
                     programNameLabel.text = "Загрузка..."
-                    progressView.progress = 0.0
+                    programNextTimeLabel.text = "Далее, ..."
+                    programNextNameLabel.text = "Загрузка..."
                 }
                 
             }
@@ -53,6 +65,11 @@ class ChannelProgramCell: UICollectionViewCell {
         nameLabel.font = UIFont.sansNarrowBold(size: 34)
         programNameLabel.textColor = .white
         programNameLabel.font = UIFont.sansNarrowRegular(size: 28)
+        programNextNameLabel.textColor = .white
+        programNextNameLabel.font = UIFont.sansNarrowRegular(size: 28)
+        programNextTimeLabel.textColor = UIColor(hexString: "#888994")
+        programNextTimeLabel.font = UIFont.sansNarrowRegular(size: 24)
+        separatorView.backgroundColor = UIColor(hexString: "#1C1D27")
         progressView.trackTintColor = UIColor(hexString: "#3E4157")
         progressView.progressTintColor = UIColor(hexString: "#3FDE10")
         progressView.layer.masksToBounds = true
@@ -68,10 +85,12 @@ class ChannelProgramCell: UICollectionViewCell {
             if self.isFocused {
                 self.transform = CGAffineTransform(scaleX: 1.03, y: 1.03)
                 self.layer.cornerRadius = 26
+                self.separatorView.backgroundColor = UIColor(hexString: "#FFEC00")
                 self.backgroundColor = UIColor(hexString: "#3E4157", alpha: 0.7)
             } else {
                 self.transform = CGAffineTransform.identity
                 self.layer.cornerRadius = 24
+                self.separatorView.backgroundColor = UIColor(hexString: "#1C1D27")
                 self.backgroundColor = UIColor(hexString: "#3E4157", alpha: 0.3)
             }
         }) {

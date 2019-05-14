@@ -18,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        if user.object(forKey: "ChannelCell") == nil {
-            user.set(CellIdentifier.ProgramCell.identifier(), forKey: "ChannelCell")
+        if user.object(forKey: UserDefaultsKeys.ChannelCell.key()) == nil {
+            user.set(CellIdentifier.ProgramNextCell.identifier(), forKey: UserDefaultsKeys.ChannelCell.key())
         }
         
         do {

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="appleTV" orientation="landscape">
+        <adaptation id="light"/>
+    </device>
+    <dependencies>
+        <deployment identifier="tvOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" id="Rz2-K0-ksD" customClass="ChannelProgramNextCell" customModule="playtv_tvos" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="213"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="213"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Hon-y8-IYc">
+                        <rect key="frame" x="30" y="10" width="440" height="96"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="JaT-NO-DWP">
+                                <rect key="frame" x="0.0" y="0.0" width="440" height="60"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5hW-3V-Ecs">
+                                        <rect key="frame" x="0.0" y="11" width="310" height="49"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSK-xW-nZC">
+                                                <rect key="frame" x="0.0" y="0.0" width="89" height="35"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="34"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="64F-OX-0Z4">
+                                                <rect key="frame" x="0.0" y="45" width="310" height="4"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="310" id="IV6-FU-eu7"/>
+                                                    <constraint firstAttribute="height" constant="4" id="NVW-Bb-kPA"/>
+                                                </constraints>
+                                                <color key="progressTintColor" red="0.2470588235" green="0.87058823529999996" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </progressView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="49" id="bAu-h6-Nqz"/>
+                                        </constraints>
+                                    </stackView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7oH-ZH-IlR">
+                                        <rect key="frame" x="330" y="0.0" width="110" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="HiU-2M-7A8"/>
+                                            <constraint firstAttribute="width" constant="110" id="ZEc-HM-lA4"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="yps-BQ-NV3"/>
+                                </constraints>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AOy-bz-Cyv">
+                                <rect key="frame" x="0.0" y="63" width="440" height="33"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="28"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wSd-Zr-nWn">
+                        <rect key="frame" x="0.0" y="115" width="500" height="2"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="2" id="tzk-Vu-xof"/>
+                        </constraints>
+                    </view>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-3" translatesAutoresizingMaskIntoConstraints="NO" id="DQJ-1h-pNf">
+                        <rect key="frame" x="30" y="124" width="440" height="58"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Da7-G7-Gkt">
+                                <rect key="frame" x="0.0" y="0.0" width="440" height="28"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ep-hP-Msj">
+                                <rect key="frame" x="0.0" y="25" width="440" height="33"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="28"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="DQJ-1h-pNf" firstAttribute="top" secondItem="wSd-Zr-nWn" secondAttribute="bottom" constant="7" id="7S7-ZD-Izt"/>
+                <constraint firstItem="wSd-Zr-nWn" firstAttribute="right" secondItem="Rz2-K0-ksD" secondAttribute="right" id="8l6-Wc-Tou"/>
+                <constraint firstItem="wSd-Zr-nWn" firstAttribute="top" secondItem="Hon-y8-IYc" secondAttribute="bottom" constant="9" id="GKt-uN-O9b"/>
+                <constraint firstAttribute="right" secondItem="DQJ-1h-pNf" secondAttribute="right" constant="30" id="ImY-Bi-7Pt"/>
+                <constraint firstAttribute="left" secondItem="Hon-y8-IYc" secondAttribute="left" constant="-30" id="PWC-Pj-zwe"/>
+                <constraint firstAttribute="left" secondItem="DQJ-1h-pNf" secondAttribute="left" constant="-30" id="S19-wS-P04"/>
+                <constraint firstAttribute="top" secondItem="Hon-y8-IYc" secondAttribute="top" constant="-10" id="Ywn-eu-Lzb"/>
+                <constraint firstAttribute="left" secondItem="wSd-Zr-nWn" secondAttribute="left" id="s4B-PL-glw"/>
+                <constraint firstItem="Hon-y8-IYc" firstAttribute="right" secondItem="Rz2-K0-ksD" secondAttribute="right" constant="-30" id="sD1-E0-1Up"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="7PP-Ag-gPX"/>
+            <connections>
+                <outlet property="imageWidthConstraint" destination="ZEc-HM-lA4" id="oM4-aX-3dc"/>
+                <outlet property="logoImage" destination="7oH-ZH-IlR" id="uPQ-c7-58J"/>
+                <outlet property="nameLabel" destination="wSK-xW-nZC" id="50C-Hk-r3f"/>
+                <outlet property="programNameLabel" destination="AOy-bz-Cyv" id="DF7-zP-TbA"/>
+                <outlet property="programNextNameLabel" destination="4Ep-hP-Msj" id="Hbh-Xq-yfN"/>
+                <outlet property="programNextTimeLabel" destination="Da7-G7-Gkt" id="z1f-Ca-3lP"/>
+                <outlet property="progressView" destination="64F-OX-0Z4" id="Ryi-Qy-0ac"/>
+                <outlet property="separatorView" destination="wSd-Zr-nWn" id="w2d-v6-xe1"/>
+            </connections>
+            <point key="canvasLocation" x="69" y="106.5"/>
+        </collectionViewCell>
+    </objects>
+</document>

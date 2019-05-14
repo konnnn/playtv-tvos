@@ -29,11 +29,13 @@
 		446FFA5722691D7F0078D778 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 446FFA5522691D7F0078D778 /* Main.storyboard */; };
 		446FFA5922691D810078D778 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 446FFA5822691D810078D778 /* Assets.xcassets */; };
 		4489354D226FADC500A691AF /* LoaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4489354C226FADC500A691AF /* LoaderViewController.swift */; };
-		44A3AE672270B7D70025B7DE /* !!!! DownloaderBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A3AE662270B7D70025B7DE /* !!!! DownloaderBox.swift */; };
 		44E3269622837F5900A786D9 /* ChannelProgramCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E3269422837F5900A786D9 /* ChannelProgramCell.swift */; };
 		44E3269722837F5900A786D9 /* ChannelProgramCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44E3269522837F5900A786D9 /* ChannelProgramCell.xib */; };
 		44E3269922838AC200A786D9 /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E3269822838AC200A786D9 /* Program.swift */; };
 		44E3269B2287075800A786D9 /* DownloadProgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E3269A2287075800A786D9 /* DownloadProgram.swift */; };
+		44E3269E228834CC00A786D9 /* ChannelProgramNextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E3269C228834CC00A786D9 /* ChannelProgramNextCell.swift */; };
+		44E3269F228834CC00A786D9 /* ChannelProgramNextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44E3269D228834CC00A786D9 /* ChannelProgramNextCell.xib */; };
+		44E326A122883F7700A786D9 /* ProgramGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E326A022883F7700A786D9 /* ProgramGuide.swift */; };
 		C9AB4D96AA1477F8554ECF30 /* Pods_playtv_tvos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACEAA85F912EE937E59B7084 /* Pods_playtv_tvos.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,11 +64,13 @@
 		446FFA5822691D810078D778 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		446FFA5A22691D810078D778 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4489354C226FADC500A691AF /* LoaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderViewController.swift; sourceTree = "<group>"; };
-		44A3AE662270B7D70025B7DE /* !!!! DownloaderBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "!!!! DownloaderBox.swift"; sourceTree = "<group>"; };
 		44E3269422837F5900A786D9 /* ChannelProgramCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelProgramCell.swift; sourceTree = "<group>"; };
 		44E3269522837F5900A786D9 /* ChannelProgramCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChannelProgramCell.xib; sourceTree = "<group>"; };
 		44E3269822838AC200A786D9 /* Program.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
 		44E3269A2287075800A786D9 /* DownloadProgram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadProgram.swift; sourceTree = "<group>"; };
+		44E3269C228834CC00A786D9 /* ChannelProgramNextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelProgramNextCell.swift; sourceTree = "<group>"; };
+		44E3269D228834CC00A786D9 /* ChannelProgramNextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChannelProgramNextCell.xib; sourceTree = "<group>"; };
+		44E326A022883F7700A786D9 /* ProgramGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramGuide.swift; sourceTree = "<group>"; };
 		85F360040ACF09DC2253EA12 /* Pods-playtv-tvos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-playtv-tvos.release.xcconfig"; path = "Target Support Files/Pods-playtv-tvos/Pods-playtv-tvos.release.xcconfig"; sourceTree = "<group>"; };
 		ACEAA85F912EE937E59B7084 /* Pods_playtv_tvos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_playtv_tvos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB0972AA680226A7B3FC83DE /* Pods-playtv-tvos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-playtv-tvos.debug.xcconfig"; path = "Target Support Files/Pods-playtv-tvos/Pods-playtv-tvos.debug.xcconfig"; sourceTree = "<group>"; };
@@ -108,6 +112,8 @@
 				4446C37922836B040077D47B /* ChannelCell.xib */,
 				44E3269422837F5900A786D9 /* ChannelProgramCell.swift */,
 				44E3269522837F5900A786D9 /* ChannelProgramCell.xib */,
+				44E3269C228834CC00A786D9 /* ChannelProgramNextCell.swift */,
+				44E3269D228834CC00A786D9 /* ChannelProgramNextCell.xib */,
 			);
 			path = "Collection View Cells";
 			sourceTree = "<group>";
@@ -169,7 +175,7 @@
 				441722FE226A4289005B7C2A /* Player.swift */,
 				445A763A226CDA4F00455C18 /* Clock.swift */,
 				4417230B226BE875005B7C2A /* Spinner.swift */,
-				44A3AE662270B7D70025B7DE /* !!!! DownloaderBox.swift */,
+				44E326A022883F7700A786D9 /* ProgramGuide.swift */,
 				44694C632270E46D00CDD166 /* DownloadHandler.swift */,
 				44E3269A2287075800A786D9 /* DownloadProgram.swift */,
 				44087716227779DB006A2081 /* Collection View Cells */,
@@ -280,6 +286,7 @@
 				44E3269722837F5900A786D9 /* ChannelProgramCell.xib in Resources */,
 				446FFA5922691D810078D778 /* Assets.xcassets in Resources */,
 				446FFA5722691D7F0078D778 /* Main.storyboard in Resources */,
+				44E3269F228834CC00A786D9 /* ChannelProgramNextCell.xib in Resources */,
 				445A763C226CE86200455C18 /* PTSans-NarrowBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -346,12 +353,13 @@
 				446FFA5422691D7F0078D778 /* MainViewController.swift in Sources */,
 				44E3269622837F5900A786D9 /* ChannelProgramCell.swift in Sources */,
 				441722FA2269270F005B7C2A /* Channel.swift in Sources */,
-				44A3AE672270B7D70025B7DE /* !!!! DownloaderBox.swift in Sources */,
 				44087714227779D3006A2081 /* ChannelCell.swift in Sources */,
 				44694C642270E46D00CDD166 /* DownloadHandler.swift in Sources */,
 				446FFA5222691D7F0078D778 /* AppDelegate.swift in Sources */,
 				4489354D226FADC500A691AF /* LoaderViewController.swift in Sources */,
+				44E3269E228834CC00A786D9 /* ChannelProgramNextCell.swift in Sources */,
 				44E3269B2287075800A786D9 /* DownloadProgram.swift in Sources */,
+				44E326A122883F7700A786D9 /* ProgramGuide.swift in Sources */,
 				44172303226B0235005B7C2A /* CAGradientLayer.swift in Sources */,
 				44172301226A9663005B7C2A /* MenuViewController.swift in Sources */,
 				4446C3782280FC110077D47B /* DispatchQueue+Background.swift in Sources */,

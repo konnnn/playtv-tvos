@@ -33,6 +33,7 @@ class LoaderViewController: GCEventViewController {
     let nameTextField: UITextField = {
         let textField = UITextField()
         textField.layer.masksToBounds = true
+        textField.borderStyle = .none
         textField.layer.cornerRadius = 24
         textField.layer.backgroundColor = UIColor(hexString: "#3E4157").cgColor
         
@@ -48,6 +49,7 @@ class LoaderViewController: GCEventViewController {
     let urlTextField: UITextField = {
         let textField = UITextField()
         textField.layer.masksToBounds = true
+        textField.borderStyle = .none
         textField.layer.cornerRadius = 24
         textField.layer.backgroundColor = UIColor(hexString: "#3E4157").cgColor
         
@@ -83,7 +85,6 @@ class LoaderViewController: GCEventViewController {
     
     let saveButton: UIButton = {
         let button = UIButton()
-        button.layer.masksToBounds = true
         button.layer.cornerRadius = 24
         button.layer.backgroundColor = UIColor(hexString: "#3E4157").cgColor
         
@@ -202,11 +203,80 @@ class LoaderViewController: GCEventViewController {
                 
                 self.dismiss(animated: true, completion: {
                     print("\n\n LoaderViewController is dismissed")
+                    
                 })
             }
         }
     }
+    
+    // MARK: - Focus Environment
+    
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        
+        for press in presses {
+            switch press.type {
+                
+            case .playPause:
+                playerIsPlaying == true ? player?.pause() : player?.play()
+                playerIsPlaying = !playerIsPlaying
+                
+            case .menu:
+                self.dismiss(animated: true, completion: nil)
+                
+            default:
+                super.pressesBegan(presses, with: event)
+            }
+        }
+    }
+    
+    // MARK: - UIFocus Update Methods
+    
+    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        super.didUpdateFocus(in: context, with: coordinator)
+        
+        coordinator.addCoordinatedAnimations({
+            if self.nameTextField.isFocused {
+                print("\n\n  Name TextField isFocused")
+                self.nameTextField.transform = CGAffineTransform(scaleX: 1.08, y: 1.1)
+                self.nameTextField.backgroundColor = UIColor(hexString: "3E4157", alpha: 0.0)
+                self.nameTextField.layer.backgroundColor = UIColor(hexString: "#FFEC00").cgColor
+                self.nameTextField.textColor = UIColor(hexString: "#3E4157")
+                
+            } else {
+                self.nameTextField.transform = CGAffineTransform.identity
+                self.nameTextField.backgroundColor = UIColor(hexString: "#3E4157")
+                self.nameTextField.textColor = .white
+            }
+            
+            if self.urlTextField.isFocused {
+                self.urlTextField.transform = CGAffineTransform(scaleX: 1.08, y: 1.1)
+                self.urlTextField.backgroundColor = UIColor(hexString: "3E4157", alpha: 0.0)
+                self.urlTextField.layer.backgroundColor = UIColor(hexString: "#FFEC00").cgColor
+                self.urlTextField.textColor = UIColor(hexString: "#3E4157")
+            } else {
+                self.urlTextField.transform = CGAffineTransform.identity
+                self.urlTextField.backgroundColor = UIColor(hexString: "#3E4157")
+                self.urlTextField.textColor = .white
+            }
+            
+            if self.saveButton.isFocused {
+                // #3E4157
+                self.saveButton.transform = CGAffineTransform(scaleX: 1.08, y: 1.1)
+                self.saveButton.layer.backgroundColor = UIColor(hexString: "#6DEF46").cgColor
+            } else {
+                // #C8EDBC
+                self.saveButton.transform = CGAffineTransform.identity
+                if self.saveButton.isEnabled {
+                    self.saveButton.layer.backgroundColor = UIColor(hexString: "#C8EDBC").cgColor
+                } else {
+                    self.saveButton.layer.backgroundColor = UIColor(hexString: "#3E4157").cgColor
+                }
+            }
+        }, completion: nil)
+    }
 }
+
+// MARK: - UITextField Delegate Methods
 
 extension LoaderViewController: UITextFieldDelegate {
     
@@ -216,7 +286,7 @@ extension LoaderViewController: UITextFieldDelegate {
         let url = urlTextField.text?.trimmingCharacters(in: .whitespaces)
         
         if name?.count != 0, url?.count != 0 {
-            saveButton.layer.backgroundColor = UIColor(hexString: "#3FDE10").cgColor
+            saveButton.layer.backgroundColor = UIColor(hexString: "#C8EDBC").cgColor
             saveButton.isEnabled = true
             
         } else {

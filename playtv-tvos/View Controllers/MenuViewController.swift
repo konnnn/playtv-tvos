@@ -23,7 +23,6 @@ class MenuViewController: GCEventViewController {
     var cellIdentifier = CellIdentifier.StandardCell.identifier()
     var cellNibName = CellNibName.ChannelCell.nibName()
     var cellHeight = CellHeight.Standard.height()
-    var ChannelCellObject: Any?
     var topAnchor: NSLayoutConstraint?
     var bottomAnchor: NSLayoutConstraint?
     
@@ -100,7 +99,7 @@ class MenuViewController: GCEventViewController {
         if let playlistID: String = user.object(forKey: UserDefaultsKeys.CurrentPlaylist.key()) as? String {
             selectedPlaylist = realm.objects(Playlist.self).filter("id == '\(playlistID)'").first
             print("\n\n Был выбран плейлист из настроек пользователя")
-            print("\n\n ID текущего плейлиста: \(playlistID)")
+            print("  ID текущего плейлиста: \(playlistID)")
 
         } else {
             // если нет выбранного плейлиста, то берём последний добавленный в бд
@@ -145,27 +144,6 @@ class MenuViewController: GCEventViewController {
             return UIImage()
         }
         return image
-    }
-    
-    // MARK: - Get Program Title
-    
-    func getProgramTitle(from program: Program) -> String {
-        
-        var title: String?
-        
-        if program.programTitle == program.episodeTitle {
-            title = "\(program.programTitle!)"
-        } else {
-            if program.seasonNumber == 0 {
-                title = "\(program.programTitle!). \(program.episodeTitle!)"
-            } else {
-                let seasonNumber: String = "\(program.seasonNumber)"
-                title = "\(program.programTitle!). Сезон \(seasonNumber). \(program.episodeTitle!)"
-            }
-            
-        }
-        
-        return title!
     }
     
     // MARK: - Animations
@@ -219,13 +197,11 @@ class MenuViewController: GCEventViewController {
             cellIdentifier = CellIdentifier.ProgramCell.identifier()
             cellNibName = CellNibName.ChannelProgramCell.nibName()
             cellHeight = CellHeight.Program.height()
-            ChannelCellObject = ChannelCell()
  
         } else if cell == CellIdentifier.ProgramNextCell.identifier() {
             cellIdentifier = CellIdentifier.ProgramNextCell.identifier()
             cellNibName = CellNibName.ChannelProgramNextCell.nibName()
             cellHeight = CellHeight.ProgramNext.height()
-            ChannelCellObject = ChannelProgramCell()
         
         } else {
             cellIdentifier = CellIdentifier.StandardCell.identifier()
@@ -238,7 +214,9 @@ class MenuViewController: GCEventViewController {
         layout.itemSize = CGSize(width: 500, height: cellHeight)
         layout.scrollDirection = .horizontal
         
-        collectionView = UICollectionView(frame: CGRect(x: 0, y: self.view.frame.height, width: self.view.frame.width, height: cellHeight), collectionViewLayout: layout)
+        // прибавляем 10 к высоте ячейки чтоб не обрезало сверху
+        // и снизу края когда ячейка увеличивается при выборе
+        collectionView = UICollectionView(frame: CGRect(x: 0, y: self.view.frame.height, width: self.view.frame.width, height: cellHeight + 10), collectionViewLayout: layout)
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -254,7 +232,9 @@ class MenuViewController: GCEventViewController {
         bottomAnchor?.isActive = true
         collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: cellHeight).isActive = true
+        // прибавляем 10 к высоте ячейки чтоб не обрезало сверху
+        // и снизу края когда ячейка увеличивается при выборе
+        collectionView.heightAnchor.constraint(equalToConstant: cellHeight + 10).isActive = true
     }
     
     func setUpTopArea() {
@@ -271,7 +251,8 @@ class MenuViewController: GCEventViewController {
         // add constraits
         topArea.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 80).isActive = true
         topArea.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -80).isActive = true
-        topArea.heightAnchor.constraint(equalToConstant: 450).isActive = true
+        let topAreaHeight = self.view.frame.height - collectionView.frame.height - 160
+        topArea.heightAnchor.constraint(equalToConstant: topAreaHeight).isActive = true
         topAnchor?.isActive = false
         topAnchor = topArea.topAnchor.constraint(equalTo: self.view.topAnchor, constant: -400)
         topAnchor?.isActive = true
@@ -298,7 +279,7 @@ class MenuViewController: GCEventViewController {
             let program = channel?.first!.program.filter("start <= %@ AND finish > %@", localDate!, localDate!).sorted(byKeyPath: "start")
             
             if program!.count != 0 {
-                channelNameLabel.text = getProgramTitle(from: (program?.first)!)
+                channelNameLabel.text = ProgramGuide.getTitle(from: (program?.first)!)
             } else {
                 channelNameLabel.text = currentChannel?.name
             }
@@ -321,15 +302,12 @@ class MenuViewController: GCEventViewController {
             
             channelNameLabel.trailingAnchor.constraint(equalTo: topArea.trailingAnchor, constant: 0).isActive = true
             channelNameLabel.widthAnchor.constraint(equalToConstant: 350).isActive = true
-//            channelNameLabel.heightAnchor.constraint(equalToConstant: 180).isActive = true
-//            channelNameLabel.bottomAnchor.constraint(equalTo: topArea.bottomAnchor).isActive = true
         
         } else {
             // если пустой
             channelLogoImage.widthAnchor.constraint(equalToConstant: 0).isActive = true
             channelLogoImage.heightAnchor.constraint(equalToConstant: 0).isActive = true
             channelNameLabel.widthAnchor.constraint(equalToConstant: 0).isActive = true
-//            channelNameLabel.heightAnchor.constraint(equalToConstant: 0).isActive = true
         }
         
     }
@@ -356,7 +334,7 @@ class MenuViewController: GCEventViewController {
             dismissViewControllerAnimation()
             
         case CellIdentifier.ProgramNextCell.identifier():
-            guard let cell = gesture.view as? ChannelProgramCell else { return }
+            guard let cell = gesture.view as? ChannelProgramNextCell else { return }
             saveCurrentChannel(channel: cell.channel!)
             
             removeGradientFromViewController()
@@ -443,38 +421,127 @@ extension MenuViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
                 let program = cell.channel?.program.filter("start <= %@ AND finish > %@", localDate!, localDate!).sorted(byKeyPath: "start")
                 
                 if program?.count != 0 {
-                    cell.programNameLabel.text = getProgramTitle(from: (program?.first)!)
+                    cell.programNameLabel.text = ProgramGuide.getTitle(from: program![0])
+                    cell.progressView.setProgress(ProgramGuide.getProgressTime(from: program![0]), animated: true)
                     
                 } else {
-                    
                     DownloadProgram.download(yaid: (cell.channel?.yaid)!, completion: { (programList, success) in
                         // do what you want with programList
-                        
                         if programList.count != 0 {
-                            
                             main(task: {
-                                cell.programNameLabel.text = self.getProgramTitle(from: programList.first!)
                                 try! self.realm.write {
+                                    self.realm.delete((self.selectedPlaylist?.channels[indexPath.item].program)!)
                                     self.selectedPlaylist?.channels[indexPath.item].program.append(objectsIn: programList)
                                 }
+                                cell.programNameLabel.text = ProgramGuide.getTitle(from: programList[0])
+                                cell.progressView.setProgress(ProgramGuide.getProgressTime(from: programList[0]), animated: true)
                             })
-                            
                         } else {
                             main(task: {
                                 cell.programNameLabel.text = "Программа недоступна"
+                                cell.progressView.progress = 0.0
                             })
                         }
                     })
-                    
                 }
                 
             } else {
                 cell.programNameLabel.text = "Программа недоступна"
+                cell.progressView.progress = 0.0
             }
             
         case CellIdentifier.ProgramNextCell.identifier():
-            let cell = cell as! ChannelProgramCell
-            cell.programNameLabel.text = "Программа недоступна"
+            let cell = cell as! ChannelProgramNextCell
+            
+            if cell.channel?.yaid != 0 {
+                
+                let localDate = Calendar.current.date(byAdding: .hour, value: -1, to: Date())
+                let program = cell.channel?.program.filter("finish > %@", localDate!).sorted(byKeyPath: "start")
+                
+                if (program?.count)! > 1 {
+                    cell.programNameLabel.text = ProgramGuide.getTitle(from: program![0])
+                    cell.progressView.setProgress(ProgramGuide.getProgressTime(from: program![0]), animated: true)
+                    cell.programNextTimeLabel.text = ProgramGuide.getTimeLeft(from: program![1])
+                    cell.programNextNameLabel.text = ProgramGuide.getTitle(from: program![1])
+                
+                } else if program?.count == 1 {
+                    DownloadProgram.download(yaid: (cell.channel?.yaid)!, completion: { (programList, success) in
+                        // do what you want with programList
+                        if programList.count > 1 {
+                            main(task: {
+                                try! self.realm.write {
+                                    self.realm.delete((self.selectedPlaylist?.channels[indexPath.item].program)!)
+                                    self.selectedPlaylist?.channels[indexPath.item].program.append(objectsIn: programList)
+                                }
+                                cell.programNameLabel.text = ProgramGuide.getTitle(from: programList[0])
+                                cell.progressView.setProgress(ProgramGuide.getProgressTime(from: programList[0]), animated: true)
+                                cell.programNextTimeLabel.text = ProgramGuide.getTimeLeft(from: programList[1])
+                                cell.programNextNameLabel.text = ProgramGuide.getTitle(from: programList[1])
+                            })
+                        } else if programList.count == 1 {
+                            main(task: {
+                                try! self.realm.write {
+                                    self.realm.delete((self.selectedPlaylist?.channels[indexPath.item].program)!)
+                                    self.selectedPlaylist?.channels[indexPath.item].program.append(objectsIn: programList)
+                                }
+                                cell.programNameLabel.text = ProgramGuide.getTitle(from: programList[0])
+                                cell.progressView.setProgress(ProgramGuide.getProgressTime(from: programList[0]), animated: true)
+                                cell.programNextTimeLabel.text = "Далее, недоступно"
+                                cell.programNextNameLabel.text = "Программа недоступна"
+                            })
+                        } else {
+                            main(task: {
+                                cell.programNameLabel.text = "Программа недоступна"
+                                cell.progressView.progress = 0.0
+                                cell.programNextTimeLabel.text = ""
+                                cell.programNextNameLabel.text = ""
+                            })
+                        }
+                    })
+                    
+                } else {
+                    DownloadProgram.download(yaid: (cell.channel?.yaid)!, completion: { (programList, success) in
+                        // do what you want with programList
+                        if programList.count > 1 {
+                            main(task: {
+                                try! self.realm.write {
+                                    self.realm.delete((self.selectedPlaylist?.channels[indexPath.item].program)!)
+                                    self.selectedPlaylist?.channels[indexPath.item].program.append(objectsIn: programList)
+                                }
+                                cell.programNameLabel.text = ProgramGuide.getTitle(from: programList[0])
+                                cell.progressView.setProgress(ProgramGuide.getProgressTime(from: programList[0]), animated: true)
+                                cell.programNextTimeLabel.text = ProgramGuide.getTimeLeft(from: programList[1])
+                                cell.programNextNameLabel.text = ProgramGuide.getTitle(from: programList[1])
+                            })
+                        
+                        } else if programList.count == 1 {
+                            main(task: {
+                                try! self.realm.write {
+                                    self.realm.delete((self.selectedPlaylist?.channels[indexPath.item].program)!)
+                                    self.selectedPlaylist?.channels[indexPath.item].program.append(objectsIn: programList)
+                                }
+                                cell.programNameLabel.text = ProgramGuide.getTitle(from: programList[0])
+                                cell.progressView.setProgress(ProgramGuide.getProgressTime(from: programList[0]), animated: true)
+                                cell.programNextTimeLabel.text = "Далее, недоступно"
+                                cell.programNextNameLabel.text = "Программа недоступна"
+                            })
+                        } else {
+                            main(task: {
+                                cell.programNameLabel.text = "Программа недоступна"
+                                cell.progressView.progress = 0.0
+                                cell.programNextTimeLabel.text = ""
+                                cell.programNextNameLabel.text = ""
+                            })
+                        }
+                    })
+                }
+                
+            } else {
+                cell.programNameLabel.text = "Программа недоступна"
+                cell.progressView.progress = 0.0
+                cell.programNextTimeLabel.text = ""
+                cell.programNextNameLabel.text = ""
+            }
             
         default:
             break
@@ -498,7 +565,7 @@ extension MenuViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
             return cell
             
         case CellIdentifier.ProgramNextCell.identifier():
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! ChannelProgramCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! ChannelProgramNextCell
             cell.channel = channelsResults![indexPath.item]
             
             if cell.gestureRecognizers?.count == nil {

@@ -23,32 +23,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="500" height="129"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Pdd-ij-Ted">
-                        <rect key="frame" x="30" y="10" width="440" height="98"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Pdd-ij-Ted">
+                        <rect key="frame" x="30" y="10" width="440" height="96"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="NKY-hU-EZw">
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="NKY-hU-EZw">
                                 <rect key="frame" x="0.0" y="0.0" width="440" height="60"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="grn-pO-aWF">
-                                        <rect key="frame" x="0.0" y="6" width="310" height="49"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="grn-pO-aWF">
+                                        <rect key="frame" x="0.0" y="11" width="310" height="49"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lag-dy-dvh">
-                                                <rect key="frame" x="0.0" y="0.0" width="310" height="41"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="89" height="35"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="34"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mam-e0-uZW">
-                                                <rect key="frame" x="0.0" y="46" width="310" height="3"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cUI-hM-CyE">
-                                                        <rect key="frame" x="0.0" y="0.0" width="310" height="4"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <color key="backgroundColor" red="0.24705882352941178" green="0.87058823529411766" blue="0.062745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </view>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.24313725490196078" green="0.25490196078431371" blue="0.3411764705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </view>
+                                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qcS-6r-ylC">
+                                                <rect key="frame" x="0.0" y="45" width="310" height="4"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="4" id="Sl9-dM-lfg"/>
+                                                    <constraint firstAttribute="width" constant="310" id="dNu-s7-jWX"/>
+                                                </constraints>
+                                                <color key="progressTintColor" red="0.2470588235" green="0.87058823529999996" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </progressView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="49" id="34b-GI-XOQ"/>
@@ -67,7 +65,7 @@
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9mA-VI-K1U">
-                                <rect key="frame" x="0.0" y="65" width="440" height="33"/>
+                                <rect key="frame" x="0.0" y="63" width="440" height="33"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="28"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -91,8 +89,7 @@
                 <outlet property="logoImage" destination="Iz0-u3-nrL" id="BPz-07-wt5"/>
                 <outlet property="nameLabel" destination="Lag-dy-dvh" id="5cM-LN-o6e"/>
                 <outlet property="programNameLabel" destination="9mA-VI-K1U" id="SBb-Mv-QbV"/>
-                <outlet property="progressContainerView" destination="Mam-e0-uZW" id="yzr-rd-eyc"/>
-                <outlet property="progressView" destination="cUI-hM-CyE" id="gA1-yL-HQF"/>
+                <outlet property="progressView" destination="qcS-6r-ylC" id="yw3-9y-5bN"/>
             </connections>
             <point key="canvasLocation" x="69" y="105.5"/>
         </collectionViewCell>
