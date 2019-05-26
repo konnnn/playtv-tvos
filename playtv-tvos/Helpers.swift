@@ -61,6 +61,7 @@ enum Layer: Int {
     case DownloaderBox = 255
     case ChannelsCollectionView = 199
     case HeaderView = 230
+    case ProgramInfo = 198
     case Spinner = 800
     case Clock = 999
     

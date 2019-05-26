@@ -46,6 +46,24 @@
             </objects>
             <point key="canvasLocation" x="2309" y="1161"/>
         </scene>
+        <!--Program Info View Controller-->
+        <scene sceneID="5Az-CJ-W4Q">
+            <objects>
+                <viewController id="dFM-IY-0SD" customClass="ProgramInfoViewController" customModule="playtv_tvos" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qLV-0X-sji"/>
+                        <viewControllerLayoutGuide type="bottom" id="xgB-29-Nem"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Fpb-5q-g0y">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="G0U-vj-fAb"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4MR-Rd-otC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2309" y="2718"/>
+        </scene>
         <!--Loader View Controller-->
         <scene sceneID="MqB-gS-1Wc">
             <objects>

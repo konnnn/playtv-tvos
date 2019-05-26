@@ -23,6 +23,15 @@ class MainViewController: GCEventViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.backgroundImage()
         Clock.run(in: self.view)
+        
+        let press = UITapGestureRecognizer(target: self, action: #selector(press(gesture:)))
+        press.allowedPressTypes = [NSNumber(integerLiteral: UIPress.PressType.select.rawValue)]
+        self.view.addGestureRecognizer(press)
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(pressLong(gesture:)))
+        longPress.allowedPressTypes = [NSNumber(integerLiteral: UIPress.PressType.select.rawValue)]
+        longPress.minimumPressDuration = 1.3
+        self.view.addGestureRecognizer(longPress)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -41,6 +50,45 @@ class MainViewController: GCEventViewController {
             print("\n\n  Выводим контролер загрузки плейлиста")
             presentLoaderViewController()
         }
+        
+        if self.view.isFocused {
+            print("\n\n  View IS FOCUSED")
+        } else {
+            print("\n\n NOT FOCUSED")
+        }
+    }
+    
+    // MARK: - Tap Gestures Methods
+    
+    @objc func press(gesture: UITapGestureRecognizer) {
+        
+        print("\n\n  TAP GESTURE")
+        
+        guard
+            let currentChannel = realm.objects(CurrentChannel.self).first,
+            let channel = realm.objects(Channel.self).filter("yaid = %@", currentChannel.yaid).first
+            else { return }
+        
+        let localDate = Calendar.current.date(byAdding: .hour, value: -1, to: Date())
+        
+        guard let program = channel.program.filter("finish > %@", localDate!).sorted(byKeyPath: "start").first else { return }
+        
+        print("\n\n  PROGRAM: \(program)")
+        
+        ProgramInfo.add(to: self.view, with: program)
+        
+        
+        
+        
+        
+    }
+    
+    @objc func pressLong(gesture: UILongPressGestureRecognizer) {
+        
+        if gesture.state == .began {
+            print("\n\n  LONG PRESS GESTURE")
+        }
+        
     }
     
     // MARK: - Press Events
@@ -60,8 +108,10 @@ class MainViewController: GCEventViewController {
                 playerIsPlaying = !playerIsPlaying
                 
             case .menu:
-                
-                print(playlist.isThereAnyPlaylists)
+                if view.viewWithTag(Layer.ProgramInfo.order()) != nil {
+                    self.view.removeGradient()
+                    ProgramInfo.hideWithAnimation(at: self.view)
+                }
                 
                 if playlist.isThereAnyPlaylists {
                     presentMenuViewController()
@@ -81,6 +131,12 @@ class MainViewController: GCEventViewController {
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         print("\nTouches moved")
+    }
+    
+    // MARK: - Focus Environment
+    
+    override var preferredFocusEnvironments: [UIFocusEnvironment] {
+        return [self.view]
     }
     
     // MARK: - Observe Events

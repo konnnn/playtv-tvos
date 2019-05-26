@@ -90,7 +90,7 @@ class DownloadHandler: NSObject {
                                 // добавляем канал в новый плейлист
                                 newPlaylist.channels.append(channel)
                                 
-                                print("  \(channel.index). \(channel.name!) / \(channel.genre!) / \(channel.url!)")
+                                print("  \(channel.index). \(channel.name!) / \(channel.genre ?? "другие") / \(channel.url!)")
                                 
                                 // обнуляем переменные объекта
                                 channel = Channel()

@@ -24,8 +24,8 @@ class DownloadProgram: NSObject {
         let yaidString: String = "\(yaid)"
         let dateString = formatter.string(from: date!)
         
-        // http://tv.evgenykonkin.ru/hdl/playtv_program_request.php?token=PT24121978&yaids=???&date=2019-05-11+13:35:00
-        var urlString = "http://tv.evgenykonkin.ru/hdl/playtv_program_request.php?token=PT24121978&yaids=\(yaidString)&date=\(dateString)"
+        // http://tv.evgenykonkin.ru/hdl/playtv_program_request.php?token=PT24121978&yaids=1073&date=2019-05-11+13:35:00&limit=10
+        var urlString = "http://tv.evgenykonkin.ru/hdl/playtv_program_request.php?token=PT24121978&yaids=\(yaidString)&date=\(dateString)&limit=10"
         urlString = urlString.replacingOccurrences(of: " ", with: "+")
         
         guard let url = URL(string: urlString) else { return }
@@ -45,12 +45,19 @@ class DownloadProgram: NSObject {
                 for dict in jsonArray {
                     let newProgram = Program()
                     newProgram.yaid = Int(dict["channel_id"] ?? "0")!
-                    newProgram.objectID = dict["obj_id"]
-                    newProgram.programID = dict["program_id"]
-                    newProgram.programTitle = dict["program_title"]
-                    newProgram.episodeID = dict["episode_id"]
-                    newProgram.episodeTitle = dict["episode_title"]
+                    newProgram.objectID = dict["obj_id"]?.trimmingCharacters(in: .whitespaces)
+                    newProgram.programID = dict["program_id"]?.trimmingCharacters(in: .whitespaces)
+                    newProgram.programTitle = dict["program_title"]?.trimmingCharacters(in: .whitespaces)
+                    newProgram.programDesc = dict["program_description"]?.trimmingCharacters(in: .whitespaces)
+                    newProgram.episodeID = dict["episode_id"]?.trimmingCharacters(in: .whitespaces)
+                    newProgram.episodeTitle = dict["episode_title"]?.trimmingCharacters(in: .whitespaces)
+                    newProgram.episodeDesc = dict["episode_description"]?.trimmingCharacters(in: .whitespaces)
                     newProgram.seasonNumber = Int(dict["season_number"] ?? "0")!
+                    newProgram.imgBaseURL = dict["img_base_url"]?.trimmingCharacters(in: .whitespaces)
+                    newProgram.ageRestriction = dict["age_restriction"]?.trimmingCharacters(in: .whitespaces)
+                    newProgram.typeName = dict["type_name"]?.trimmingCharacters(in: .whitespaces)
+                    newProgram.countries = dict["countries"]?.trimmingCharacters(in: .whitespaces)
+                    newProgram.year = dict["year"]?.trimmingCharacters(in: .whitespaces)
                     newProgram.socialDate = formatterSocial.date(from: dict["social_date"]!)
                     newProgram.start = formatter.date(from: dict["start"]!)
                     newProgram.finish = formatter.date(from: dict["finish"]!)

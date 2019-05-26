@@ -14,6 +14,7 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    // http://tv.evgenykonkin.ru/playlist/yandex-channels.txt
     private let yandexChannelsURL = "http://tv.evgenykonkin.ru/playlist/yandex-channels.txt"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -49,8 +50,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func downloadYandexChannels(url: URL) {
-        // http://tv.evgenykonkin.ru/playlist/yandex-channels.txt
-        
         let task = URLSession.shared.downloadTask(with: url) { (localURL, urlResponse, error) in
             
             if let localURL = localURL, error == nil {
@@ -63,6 +62,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let linesArray: [String] = channelsString.components(separatedBy: .newlines)
                     
                     for line in linesArray {
+                        
+                        print("\n\n  \(line)")
                         
                         if line.trimmingCharacters(in: .whitespacesAndNewlines).count != 0 {
                             let items = line.components(separatedBy: "|")

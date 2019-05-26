@@ -68,10 +68,12 @@ class ChannelProgramCell: UICollectionViewCell {
             if self.isFocused {
                 self.transform = CGAffineTransform(scaleX: 1.03, y: 1.03)
                 self.layer.cornerRadius = 26
+                self.progressView.trackTintColor = UIColor(hexString: "#6B6B85")
                 self.backgroundColor = UIColor(hexString: "#3E4157", alpha: 0.7)
             } else {
                 self.transform = CGAffineTransform.identity
                 self.layer.cornerRadius = 24
+                self.progressView.trackTintColor = UIColor(hexString: "#3E4157")
                 self.backgroundColor = UIColor(hexString: "#3E4157", alpha: 0.3)
             }
         }) {

@@ -133,7 +133,7 @@ class MenuViewController: GCEventViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        addGradientToViewController()
+        self.view.addGradient()
         showInterfaceAnimation()
     }
     
@@ -312,16 +312,49 @@ class MenuViewController: GCEventViewController {
         
     }
     
-    // MARK: - Tap Gestures
+    // MARK: - Tap Gestures Methods
+    
+    @objc func pressCellLong(gesture: UILongPressGestureRecognizer) {
+        
+//        if gesture.state == .began {
+//            print("\n\n  LONG PRESS GESTURE")
+//
+//            switch cellIdentifier {
+//            case CellIdentifier.StandardCell.identifier():
+//                break
+//
+//            case CellIdentifier.ProgramCell.identifier():
+//                guard let cell = gesture.view as? ChannelProgramCell else { return }
+//                let localDate = Calendar.current.date(byAdding: .hour, value: -1, to: Date())
+//                guard let program = cell.channel?.program.filter("finish > %@", localDate!).sorted(byKeyPath: "start") else { return }
+//                if program.count > 0 {
+//                    ProgramInfo.add(to: self.view, with: program.first!, at: -(cellHeight + 84))
+//                }
+//
+//            case CellIdentifier.ProgramNextCell.identifier():
+//                guard let cell = gesture.view as? ChannelProgramNextCell else { return }
+//                let localDate = Calendar.current.date(byAdding: .hour, value: -1, to: Date())
+//                guard let program = cell.channel?.program.filter("finish > %@", localDate!).sorted(byKeyPath: "start") else { return }
+//                if program.count > 0 {
+//                    ProgramInfo.add(to: self.view, with: program.first!, at: -(cellHeight + 84))
+//                }
+//
+//            default:
+//                break
+//            }
+//        }
+    }
     
     @objc func pressCell(gesture: UITapGestureRecognizer) {
+        
+        print("\n\n  TAP GESTURE")
         
         switch cellIdentifier {
         case CellIdentifier.StandardCell.identifier():
             guard let cell = gesture.view as? ChannelCell else { return }
             saveCurrentChannel(channel: cell.channel!)
             
-            removeGradientFromViewController()
+            self.view.removeGradient()
             delegate?.channelSelectionPressed(channelURL: cell.channel!.url!)
             dismissViewControllerAnimation()
             
@@ -329,16 +362,22 @@ class MenuViewController: GCEventViewController {
             guard let cell = gesture.view as? ChannelProgramCell else { return }
             saveCurrentChannel(channel: cell.channel!)
             
-            removeGradientFromViewController()
+            self.view.removeGradient()
             delegate?.channelSelectionPressed(channelURL: cell.channel!.url!)
+            if view.viewWithTag(Layer.ProgramInfo.order()) != nil {
+                ProgramInfo.hideWithAnimation(at: self.view)
+            }
             dismissViewControllerAnimation()
             
         case CellIdentifier.ProgramNextCell.identifier():
             guard let cell = gesture.view as? ChannelProgramNextCell else { return }
             saveCurrentChannel(channel: cell.channel!)
             
-            removeGradientFromViewController()
+            self.view.removeGradient()
             delegate?.channelSelectionPressed(channelURL: cell.channel!.url!)
+            if view.viewWithTag(Layer.ProgramInfo.order()) != nil {
+                ProgramInfo.hideWithAnimation(at: self.view)
+            }
             dismissViewControllerAnimation()
             
         default:
@@ -382,24 +421,36 @@ class MenuViewController: GCEventViewController {
     }
     
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
-        
         for press in presses {
             switch press.type {
-           
+
             case .playPause:
                 playerIsPlaying == true ? player?.pause() : player?.play()
                 playerIsPlaying = !playerIsPlaying
-            
+
             case .menu:
                 dismissViewControllerAnimation()
-           
+
             default:
                 super.pressesBegan(presses, with: event)
             }
         }
     }
     
+  
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 // MARK: - CollectionView DataSource and Delegate Methods
 
@@ -560,6 +611,11 @@ extension MenuViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
                 let press = UITapGestureRecognizer(target: self, action: #selector(pressCell(gesture:)))
                 press.allowedPressTypes = [NSNumber(integerLiteral: UIPress.PressType.select.rawValue)]
                 cell.addGestureRecognizer(press)
+                
+                let longPress = UILongPressGestureRecognizer(target: self, action: #selector(pressCellLong(gesture:)))
+                longPress.allowedPressTypes = [NSNumber(integerLiteral: UIPress.PressType.select.rawValue)]
+                longPress.minimumPressDuration = 1.0
+                cell.addGestureRecognizer(longPress)
             }
             
             return cell
@@ -572,6 +628,11 @@ extension MenuViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
                 let press = UITapGestureRecognizer(target: self, action: #selector(pressCell(gesture:)))
                 press.allowedPressTypes = [NSNumber(integerLiteral: UIPress.PressType.select.rawValue)]
                 cell.addGestureRecognizer(press)
+                
+                let longPress = UILongPressGestureRecognizer(target: self, action: #selector(pressCellLong(gesture:)))
+                longPress.allowedPressTypes = [NSNumber(integerLiteral: UIPress.PressType.select.rawValue)]
+                longPress.minimumPressDuration = 1.0
+                cell.addGestureRecognizer(longPress)
             }
             
             return cell
@@ -584,6 +645,11 @@ extension MenuViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
                 let press = UITapGestureRecognizer(target: self, action: #selector(pressCell(gesture:)))
                 press.allowedPressTypes = [NSNumber(integerLiteral: UIPress.PressType.select.rawValue)]
                 cell.addGestureRecognizer(press)
+                
+                let longPress = UILongPressGestureRecognizer(target: self, action: #selector(pressCellLong(gesture:)))
+                longPress.allowedPressTypes = [NSNumber(integerLiteral: UIPress.PressType.select.rawValue)]
+                longPress.minimumPressDuration = 2.0
+                cell.addGestureRecognizer(longPress)
             }
             
             return cell

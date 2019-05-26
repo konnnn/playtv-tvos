@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UIImage{
+extension UIImage {
     func resizeImage(to newImageSize: CGSize) -> UIImage {
         // Guard newSize is different
         guard self.size != newImageSize else { return self }

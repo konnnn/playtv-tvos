@@ -44,11 +44,11 @@ class ProgramGuide: NSObject {
         if components.hour == 0 && components.minute == 0 {
             time = "Далее, через несколько секунд"
         } else if components.hour == 0 {
-            time = "Далее, через \(components.minute!)мин"
+            time = "Далее, через \(components.minute! + 1)мин"
         } else if components.minute == 0 {
             time = "Далее, через \(components.hour!)ч"
         } else {
-            time = "Далее, через \(components.hour!)ч \(components.minute!)мин"
+            time = "Далее, через \(components.hour!)ч \(components.minute! + 1)мин"
         }
 
         return time!
@@ -66,9 +66,6 @@ class ProgramGuide: NSObject {
         let passedTime = calendar.dateComponents([.second], from: startTime, to: currentTime)
         let fullTime = calendar.dateComponents([.second], from: startTime, to: finishTime)
         progress = Float(passedTime.second!) / Float(fullTime.second!)
-        
-        print("\n\n  Прошло времени: \(progress) — \(passedTime.second! / fullTime.second!)")
-        print("  Временя: \(passedTime.second!) — \(fullTime.second!)")
         
         return progress
     }

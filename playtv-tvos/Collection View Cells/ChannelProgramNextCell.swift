@@ -42,6 +42,8 @@ class ChannelProgramNextCell: UICollectionViewCell {
                     programNextTimeLabel.text = ProgramGuide.getTimeLeft(from: program![1])
                     programNextNameLabel.text = ProgramGuide.getTitle(from: program![1])
                     
+                    print("\n\n  \(channel!.name!)/\(program![0].objectID!): \(program![0].start!) — \(program![1].start!)")
+                    
                 } else if program!.count == 1 {
                     programNameLabel.text = ProgramGuide.getTitle(from: program![0])
                     progressView.setProgress(ProgramGuide.getProgressTime(from: program![0]), animated: true)
@@ -85,11 +87,13 @@ class ChannelProgramNextCell: UICollectionViewCell {
             if self.isFocused {
                 self.transform = CGAffineTransform(scaleX: 1.03, y: 1.03)
                 self.layer.cornerRadius = 26
+                self.progressView.trackTintColor = UIColor(hexString: "#6B6B85")
                 self.separatorView.backgroundColor = UIColor(hexString: "#FFEC00")
                 self.backgroundColor = UIColor(hexString: "#3E4157", alpha: 0.7)
             } else {
                 self.transform = CGAffineTransform.identity
                 self.layer.cornerRadius = 24
+                self.progressView.trackTintColor = UIColor(hexString: "#3E4157")
                 self.separatorView.backgroundColor = UIColor(hexString: "#1C1D27")
                 self.backgroundColor = UIColor(hexString: "#3E4157", alpha: 0.3)
             }
